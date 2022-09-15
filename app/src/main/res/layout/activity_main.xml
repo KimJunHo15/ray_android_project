@@ -4,19 +4,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="6dp"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
+    <ImageView
+        android:id="@+id/img_info"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintEnd_toEndOf="@+id/img_game"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/img_game"
+        app:layout_constraintTop_toBottomOf="@+id/img_game"
+        app:srcCompat="@drawable/img2" />
+
+    <ImageView
+        android:id="@+id/img_exam"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:srcCompat="@drawable/img3" />
+
+    <ImageView
+        android:id="@+id/img_my"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintEnd_toEndOf="@+id/img_exam"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/img_exam"
+        app:layout_constraintTop_toBottomOf="@+id/img_exam"
+        app:srcCompat="@drawable/img4" />
+
+    <ImageView
+        android:id="@+id/img_game"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/img_exam"
+        app:layout_constraintTop_toTopOf="@+id/img_exam"
+        app:srcCompat="@drawable/img1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="308dp"
-        android:layout_marginEnd="159dp"
-        android:layout_marginBottom="375dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="299dp"
+        android:layout_height="185dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="검사 시작"
+        app:layout_constraintBottom_toTopOf="@+id/img_my"
+        app:layout_constraintEnd_toEndOf="@+id/img_exam"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="@+id/img_exam"
+        app:layout_constraintTop_toBottomOf="@+id/img_exam"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="게임"
+        app:layout_constraintBottom_toTopOf="@+id/img_info"
+        app:layout_constraintEnd_toEndOf="@+id/img_game"
+        app:layout_constraintHorizontal_bias="0.574"
+        app:layout_constraintStart_toStartOf="@+id/img_game"
+        app:layout_constraintTop_toBottomOf="@+id/img_game"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="나의 정보"
+        app:layout_constraintEnd_toEndOf="@+id/img_my"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="@+id/img_my"
+        app:layout_constraintTop_toBottomOf="@+id/img_my" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="치매 정보"
+        app:layout_constraintEnd_toEndOf="@+id/img_info"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="@+id/img_info"
+        app:layout_constraintTop_toBottomOf="@+id/img_info" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
