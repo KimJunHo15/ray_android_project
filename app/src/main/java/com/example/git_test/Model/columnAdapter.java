@@ -57,6 +57,7 @@ public class columnAdapter extends BaseAdapter {
         TextView tv_column_c = view.findViewById(R.id.tv_column_c);
         tv_column_c.setText(data.get(i).getTv_column_c());
         ImageView img_column = view.findViewById(R.id.img_column);
+        img_column.setImageResource(data.get(i).getImg_column());
 
         return view;
     }
