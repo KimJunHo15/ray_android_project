@@ -7,4 +7,66 @@
     android:layout_height="match_parent"
     tools:context=".Exam_upload">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <ImageView
+      android:id="@+id/img_upload_img"
+      android:layout_width="511dp"
+      android:layout_height="727dp"
+      android:visibility="visible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.502"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.014"
+      tools:srcCompat="@drawable/big_logo" />
+
+  <TextView
+      android:id="@+id/tv_filename"
+      android:layout_width="489dp"
+      android:layout_height="59dp"
+      android:layout_marginTop="128dp"
+      android:text="첨부 파일 이름"
+      android:textSize="50dp"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="@+id/img_upload_img"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="@+id/img_upload_img"
+      app:layout_constraintTop_toBottomOf="@+id/img_upload_img" />
+
+  <Button
+      android:id="@+id/btn_upload"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="44dp"
+      android:text="사진 첨부"
+      android:textSize="48dp"
+      app:layout_constraintEnd_toEndOf="@+id/img_upload_img"
+      app:layout_constraintStart_toStartOf="@+id/img_upload_img"
+      app:layout_constraintTop_toBottomOf="@+id/img_upload_img" />
+
+  <Button
+      android:id="@+id/btn_upload_send"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="224dp"
+      android:text="업로드"
+      android:textSize="48dp"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="@+id/img_upload_img"
+      app:layout_constraintHorizontal_bias="0.074"
+      app:layout_constraintStart_toStartOf="@+id/img_upload_img"
+      app:layout_constraintTop_toBottomOf="@+id/img_upload_img" />
+
+  <Button
+      android:id="@+id/btn_re_select"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="224dp"
+      android:text="다시 선택"
+      android:textSize="48dp"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="@+id/img_upload_img"
+      app:layout_constraintHorizontal_bias="0.485"
+      app:layout_constraintStart_toEndOf="@+id/btn_upload_send"
+      app:layout_constraintTop_toBottomOf="@+id/img_upload_img" />
+</androidx.constraintlayout.widget.ConstraintLayout>
