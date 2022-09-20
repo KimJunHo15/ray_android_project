@@ -33,7 +33,7 @@ public class IndexActivity extends AppCompatActivity {
         et_id = findViewById(R.id.et_id);
         et_pw = findViewById(R.id.et_pw);
 
-        // 메인 넘어가는거 확인용
+
 
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR);
         Log.d("권한",permissionCheck+"");
