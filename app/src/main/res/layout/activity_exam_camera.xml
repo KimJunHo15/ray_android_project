@@ -7,4 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".Exam_camera">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <ImageView
+      android:id="@+id/img_camera_pre"
+      android:layout_width="516dp"
+      android:layout_height="628dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.165"
+      app:srcCompat="@drawable/big_logo" />
+
+  <Button
+      android:id="@+id/btn_camera_send"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="160dp"
+      android:text="업로드"
+      android:textSize="48dp"
+      app:layout_constraintEnd_toEndOf="@+id/img_camera_pre"
+      app:layout_constraintHorizontal_bias="0.162"
+      app:layout_constraintStart_toStartOf="@+id/img_camera_pre"
+      app:layout_constraintTop_toBottomOf="@+id/img_camera_pre" />
+
+  <Button
+      android:id="@+id/btn_re_capture"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="160dp"
+      android:text="다시찍기"
+      android:textSize="48dp"
+      app:layout_constraintEnd_toEndOf="@+id/img_camera_pre"
+      app:layout_constraintHorizontal_bias="0.502"
+      app:layout_constraintStart_toEndOf="@+id/btn_camera_send"
+      app:layout_constraintTop_toBottomOf="@+id/img_camera_pre" />
+</androidx.constraintlayout.widget.ConstraintLayout>

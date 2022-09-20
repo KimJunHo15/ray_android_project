@@ -1,12 +1,15 @@
 package com.example.git_test;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,11 +46,14 @@ public class ExamActivity extends AppCompatActivity {
         img_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ExamActivity.this, Exam_camera.class);
-                startActivity(intent);
+                    Intent intent = new Intent(ExamActivity.this, Exam_camera.class);
+                    startActivity(intent);
+                }
 
             }
-        });
+        );
+
+
 
         img_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,4 +64,6 @@ public class ExamActivity extends AppCompatActivity {
         });
 
     }
+
+
 }
