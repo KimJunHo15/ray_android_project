@@ -78,16 +78,14 @@ public class IndexActivity extends AppCompatActivity {
                                             try {
                                                 JSONObject json = new JSONObject(response);
                                                 String code = json.getString("code");
-                                                if(code.equals("200")){
+                                                if (code.equals("200")) {
                                                     Intent intent_login = new Intent(IndexActivity.this, MainActivity.class);
                                                     startActivity(intent_login);
-                                                }else if(code.equals("400")){
-                                                      Toast.makeText(IndexActivity.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
-                                                }else if(code.equals("500")){
-                                                      Toast.makeText(IndexActivity.this, "해당 ID의 사용자가 없습니다.", Toast.LENGTH_SHORT).show();
+                                                } else if (code.equals("400")) {
+                                                    Toast.makeText(IndexActivity.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                                } else if (code.equals("500")) {
+                                                    Toast.makeText(IndexActivity.this, "해당 ID의 사용자가 없습니다.", Toast.LENGTH_SHORT).show();
                                                 }
-
-
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -97,7 +95,7 @@ public class IndexActivity extends AppCompatActivity {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
                                             Toast.makeText(getApplicationContext(), "인터넷 권한을 확인해주세요.", Toast.LENGTH_SHORT).show();
-                                            Log.d("error에러",error.toString());
+                                            Log.d("error에러", error.toString());
                                         }
                                     }
                             ) {
@@ -118,6 +116,13 @@ public class IndexActivity extends AppCompatActivity {
                             requestQueue.add(request);
                         }
                     });
+                    btn_join.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+//                            Intent intent_join = new Intent(MainActivity.class, JoinActivity.class);
+//                            startActivity(intent_join);
+                        }
+                    });
                 }
 
                 @Override
@@ -127,11 +132,14 @@ public class IndexActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             Toast.makeText(IndexActivity.this, "권한이 허가되지 않았습니다.", Toast.LENGTH_LONG).show();
-
                         }
-
                     });
-
+                    btn_login.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(IndexActivity.this, "권한이 허가되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             };
 
