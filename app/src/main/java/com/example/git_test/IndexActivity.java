@@ -49,6 +49,8 @@ public class IndexActivity extends AppCompatActivity {
         et_id = findViewById(R.id.et_id);
         et_pw = findViewById(R.id.et_pw);
 
+        //String l_url2 = "http://127.0.0.1:8000/m_login";
+        String l_url = "http://10.0.2.2:8000/m_login";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
 
@@ -59,46 +61,32 @@ public class IndexActivity extends AppCompatActivity {
             PermissionListener permissionListener = new PermissionListener() {
                 @Override
                 public void onPermissionGranted() {
-
-//                    btn_login.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            Intent intent = new Intent(IndexActivity.this, MainActivity.class);
-//                            startActivity(intent);
-//                        }
-//                    });
-                }
-
-                @Override
-                public void onPermissionDenied(List<String> deniedPermissions) {
-                    Toast.makeText(IndexActivity.this, "권한 거부\n 서비스 이용을 위해서는 권한을 허용해주세요", Toast.LENGTH_SHORT).show();
-                    btn_join.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Toast.makeText(IndexActivity.this, "권한이 허가되지 않았습니다.", Toast.LENGTH_LONG).show();
-                        }
-
-                    });
                     btn_login.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(IndexActivity.this, "권한이 허가되지 않았습니다.", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(IndexActivity.this, "권한이 허가되지 않았습니다.", Toast.LENGTH_LONG).show();
                             String data = et_id.getText().toString();
                             String data2 = et_pw.getText().toString();
 
                             request = new StringRequest(
                                     Request.Method.POST,
-                                    "http://127.0.0.1:8000/",
+                                    l_url,
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
-                                            //Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+
                                             try {
                                                 JSONObject json = new JSONObject(response);
+                                                String code = json.getString("code");
+                                                if(code.equals("200")){
+                                                    Intent intent_login = new Intent(IndexActivity.this, MainActivity.class);
+                                                    startActivity(intent_login);
+                                                }else if(code.equals("400")){
+                                                      Toast.makeText(IndexActivity.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                                }else if(code.equals("500")){
+                                                      Toast.makeText(IndexActivity.this, "해당 ID의 사용자가 없습니다.", Toast.LENGTH_SHORT).show();
+                                                }
 
-                                                String check = json.getString("result");
-
-                                                Log.d("check",check);
 
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -108,7 +96,8 @@ public class IndexActivity extends AppCompatActivity {
                                     new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "인터넷 권한을 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                            Log.d("error에러",error.toString());
                                         }
                                     }
                             ) {
@@ -120,19 +109,29 @@ public class IndexActivity extends AppCompatActivity {
                                     // Map<key, value> 구조
                                     Map<String, String> params = new HashMap<>();
 
-                                    params.put("id", data);
-                                    params.put("password", data2);
+                                    params.put("user_id", data);
+                                    params.put("user_pw", data2);
 
                                     return params;
                                 }
                             };
-
                             requestQueue.add(request);
+                        }
+                    });
+                }
+
+                @Override
+                public void onPermissionDenied(List<String> deniedPermissions) {
+                    Toast.makeText(IndexActivity.this, "권한 거부\n 서비스 이용을 위해서는 권한을 허용해주세요", Toast.LENGTH_SHORT).show();
+                    btn_join.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(IndexActivity.this, "권한이 허가되지 않았습니다.", Toast.LENGTH_LONG).show();
 
                         }
 
-
                     });
+
                 }
             };
 
