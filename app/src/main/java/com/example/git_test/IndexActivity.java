@@ -51,7 +51,7 @@ public class IndexActivity extends AppCompatActivity {
         et_pw = findViewById(R.id.et_pw);
 
 
-        //String l_url2 = "http://127.0.0.1:8000/m_login";
+        String l_url2 = "http://127.0.0.1:8000/m_login";
         String l_url = "http://10.0.2.2:8000/m_login";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -96,7 +96,7 @@ public class IndexActivity extends AppCompatActivity {
                                     new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getApplicationContext(), "인터넷 권한을 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "서버연결 오류.", Toast.LENGTH_SHORT).show();
                                             Log.d("error에러", error.toString());
                                         }
                                     }
