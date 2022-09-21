@@ -52,7 +52,7 @@ public class IndexActivity extends AppCompatActivity {
 
 
         String l_url2 = "http://127.0.0.1:8000/m_login";
-        String l_url = "http://10.0.2.2:8000/m_login";
+        String l_url = "http://10.0.2.2:8000/mobile/login";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
 
@@ -109,8 +109,8 @@ public class IndexActivity extends AppCompatActivity {
                                     // Map<key, value> 구조
                                     Map<String, String> params = new HashMap<>();
 
-                                    params.put("user_id", data);
-                                    params.put("user_pw", data2);
+                                    params.put("mem_id", data);
+                                    params.put("mem_pw", data2);
 
                                     return params;
                                 }

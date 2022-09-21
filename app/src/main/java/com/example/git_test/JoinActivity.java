@@ -36,7 +36,7 @@ public class JoinActivity extends AppCompatActivity {
     StringRequest request;
     RadioGroup radio_join;
     String type;
-    SimpleDateFormat joinDate;
+//    SimpleDateFormat joinDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +45,12 @@ public class JoinActivity extends AppCompatActivity {
 
         bt_join = findViewById(R.id.bt_join);
         ed_name = findViewById(R.id.ed_name);
-        ed_id = findViewById(R.id.et_id);
+        ed_id = findViewById(R.id.ed_id);
         ed_pw = findViewById(R.id.ed_pw);
         ed_birth = findViewById(R.id.ed_birth);
         ed_gender = findViewById(R.id.ed_gender);
         radio_join = findViewById(R.id.radio_join);
-        joinDate= new SimpleDateFormat("yyyy-MM-dd");
+       // joinDate= new SimpleDateFormat("yyyy-MM-dd");
 
         radio_join.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -69,7 +69,7 @@ public class JoinActivity extends AppCompatActivity {
             }
         });
 
-        String l_url = "http://10.0.2.2:8000/m_regist";
+        String l_url = "http://10.0.2.2:8000/mobile/regist";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         bt_join.setOnClickListener(new View.OnClickListener() {
@@ -81,34 +81,8 @@ public class JoinActivity extends AppCompatActivity {
                 String data3 = ed_name.getText().toString();
                 String data4 = ed_birth.getText().toString();
                 String data5 = ed_gender.getText().toString();
-                String data6 = joinDate.toString();
-                String data7 = type;
+                String data6 = type;
 
-
-//                Response.Listener<String> responseListener = new Response.Listener<String>(){
-//                    @Override
-//                    public void onResponse(String response) {
-//                        try{
-//                            JSONObject jsonResponse = new JSONObject(response);
-//                            boolean success = jsonResponse.getBoolean("success");
-//                            if(success){
-//                                Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-//
-//                                Intent intent = new Intent(JoinActivity.this, IndexActivity.class );
-//                                startActivity(intent);
-//                               // finish();
-//
-//                            }else{
-//                                Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다. 다시 한 번 확인해 주세요.", Toast.LENGTH_SHORT).show();
-//                                return;
-//                            }
-//
-//                        }
-//                        catch(Exception e){
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                };
                 request = new StringRequest(
                         Request.Method.POST,
                         l_url,
@@ -119,12 +93,11 @@ public class JoinActivity extends AppCompatActivity {
                                     JSONObject json = new JSONObject(response);
                                     String code = json.getString("code");
                                     if (code.equals("200")) {
-                                        Intent intent_Join = new Intent(JoinActivity.this, MainActivity.class);
-                                        startActivity(intent_Join);
-                                    } else if (code.equals("200")) {
-                                        Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다. 다시 한 번 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                                        Intent intent_res = new Intent(JoinActivity.this, IndexActivity.class);
+                                        startActivity(intent_res);
+                                    } else if (code.equals("400")) {
+                                        Toast.makeText(getApplicationContext(), "중복된 아이디입니다. 다른 아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
                                         return;
-
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -147,13 +120,13 @@ public class JoinActivity extends AppCompatActivity {
                         // Map<key, value> 구조
                         Map<String, String> params = new HashMap<>();
 
-                        params.put("user_id", data1);
-                        params.put("user_pw", data2);
-                        params.put("user_name", data3);
-                        params.put("user_birth", data4);
-                        params.put("user_gender", data5);
-                        params.put("user_gender", data6);
-                        params.put("user_type", data7);
+                        params.put("mem_id", data1);
+                        params.put("mem_pw", data2);
+                        params.put("mem_name", data3);
+                        params.put("mem_birth", data4);
+                        params.put("mem_gender", data5);
+                        params.put("mem_type", data6);
+
 
                         return params;
                     }
