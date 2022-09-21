@@ -119,8 +119,8 @@ public class IndexActivity extends AppCompatActivity {
                     btn_join.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-//                            Intent intent_join = new Intent(MainActivity.class, JoinActivity.class);
-//                            startActivity(intent_join);
+                            Intent intent = new Intent(IndexActivity.this, JoinActivity.class);
+                            startActivity(intent);
                         }
                     });
                 }

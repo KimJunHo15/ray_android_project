@@ -1,68 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.git_test">
+<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+package="com.example.git_test">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.CAMERA" />
 
-    <application
-        android:allowBackup="true"
-        android:appComponentFactory="whateverString"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Git_test"
-        android:usesCleartextTraffic="true"
-        tools:replace="android:appComponentFactory"
-        tools:targetApi="31">
-        <activity
-            android:name=".game4"
-            android:exported="false" />
-        <activity
-            android:name=".game3"
-            android:exported="false" />
-        <activity
-            android:name=".game2"
-            android:exported="false" />
-        <activity
-            android:name=".game1"
-            android:exported="false" />
-        <activity
-            android:name=".IndexActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<application
+    android:allowBackup="true"
+    android:dataExtractionRules="@xml/data_extraction_rules"
+    android:fullBackupContent="@xml/backup_rules"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.Git_test"
+    tools:replace="android:appComponentFactory"
+    android:appComponentFactory="whateverString"
+    tools:targetApi="31">
+    <activity
+        android:name=".IndexActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+    <activity
+        android:name=".MyActivity"
+        android:exported="false" />
+    <activity
+        android:name=".GameActivity"
+        android:exported="false" />
+    <activity
+        android:name=".ExamActivity"
+        android:exported="false" />
+    <activity
+        android:name=".InfoActivity"
+        android:exported="false" />
+    <activity
+        android:name=".MainActivity"
+        android:exported="false" />
+    <activity
+        android:name="com.example.git_test.Exam_camera"
+        android:exported="false" />
+    <activity
+        android:name="com.example.git_test.Exam_upload"
+        android:exported="false" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GameActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ExamActivity"
-            android:exported="false" />
-        <activity
-            android:name=".InfoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Exam_camera"
-            android:exported="false" />
-        <activity
-            android:name=".Exam_upload"
-            android:exported="false" />
-    </application>
-
+</application>
 </manifest>
+
