@@ -18,6 +18,7 @@ package="com.example.git_test">
     android:theme="@style/Theme.Git_test"
     tools:replace="android:appComponentFactory"
     android:appComponentFactory="whateverString"
+    android:usesCleartextTraffic="true"
     tools:targetApi="31">
     <activity
         android:name=".IndexActivity"
@@ -43,6 +44,12 @@ package="com.example.git_test">
         android:name=".MainActivity"
         android:exported="false" />
     <activity android:name=".JoinActivity"
+        android:exported="false"/>
+    <activity android:name=".game3"
+        android:exported="false"/>
+    <activity android:name=".game2"
+        android:exported="false"/>
+    <activity android:name=".game4"
         android:exported="false"/>
     <activity
         android:name="com.example.git_test.Exam_camera"
