@@ -18,12 +18,14 @@ public class foodAdapter extends BaseAdapter {
     ArrayList<foodVO> data;
     LayoutInflater inflater;
 
-    public foodAdapter(int column_list, ArrayList<foodVO> data) {
+    public foodAdapter(Context context,int food_list, ArrayList<foodVO> data) {
+        this.context = context;
         this.food_list = food_list;
         this.data = data;
         this.inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 
     }
+
     @Override
     public int getCount() {
         return data.size();
@@ -44,7 +46,11 @@ public class foodAdapter extends BaseAdapter {
         if(view==null){
             view=inflater.inflate(food_list,viewGroup,false);
         }
-        ImageView img_food = view.findViewById(R.id.img_food);
+        TextView tv_food_t =  view.findViewById(R.id.tv_food_t);
+        tv_food_t.setText(data.get(i).getTv_food_t());
+        TextView tv_food_c = view.findViewById(R.id.tv_food_c);
+        tv_food_c.setText(data.get(i).getTv_food_c());
+        ImageView img_food = view.findViewById(R.id.img_column);
         img_food.setImageResource(data.get(i).getImg_food());
 
         return view;
