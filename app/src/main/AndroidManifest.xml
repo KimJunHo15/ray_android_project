@@ -42,6 +42,8 @@ package="com.example.git_test">
     <activity
         android:name=".MainActivity"
         android:exported="false" />
+    <activity android:name=".JoinActivity"
+        android:exported="false"/>
     <activity
         android:name="com.example.git_test.Exam_camera"
         android:exported="false" />

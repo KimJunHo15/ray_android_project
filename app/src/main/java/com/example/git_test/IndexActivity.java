@@ -27,6 +27,7 @@ import com.gun0912.tedpermission.TedPermission;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,7 @@ public class IndexActivity extends AppCompatActivity {
         btn_join = findViewById(R.id.btn_join);
         et_id = findViewById(R.id.et_id);
         et_pw = findViewById(R.id.et_pw);
+
 
         //String l_url2 = "http://127.0.0.1:8000/m_login";
         String l_url = "http://10.0.2.2:8000/m_login";
@@ -116,13 +118,13 @@ public class IndexActivity extends AppCompatActivity {
                             requestQueue.add(request);
                         }
                     });
-                    btn_join.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(IndexActivity.this, JoinActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+                btn_join.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent_join = new Intent(IndexActivity.this, JoinActivity.class);
+                        startActivity(intent_join);
+                    }
+                });
                 }
 
                 @Override

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="6dp"
     tools:context=".JoinActivity">
 
     <ImageView
@@ -19,7 +20,7 @@
         android:id="@+id/ed_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="이름"
         android:inputType="textPersonName"
@@ -27,13 +28,13 @@
         android:textSize="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_pw" />
 
     <EditText
         android:id="@+id/ed_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="160dp"
         android:ems="10"
         android:hint="아이디"
         android:inputType="textPersonName"
@@ -41,7 +42,7 @@
         android:textSize="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_name" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/ed_pw"
@@ -69,7 +70,7 @@
         android:textSize="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_pw" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_name" />
 
     <EditText
         android:id="@+id/ed_gender"
@@ -96,26 +97,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_gender" />
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="142dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="52dp"
-        android:text="보호자"
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-    <RadioButton
-        android:id="@+id/radioButton3"
-        android:layout_width="134dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="152dp"
-        android:text="본인"
-        android:textSize="24dp"
+    <RadioGroup
+        android:id="@+id/radio_join"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <RadioButton
+            android:id="@+id/radio_doctor"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="의사"
+            android:textSize="28dp" />
+
+        <RadioButton
+            android:id="@+id/radio_parent"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="보호자"
+            android:textSize="28dp" />
+
+        <RadioButton
+            android:id="@+id/radio_client"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="일반고객"
+            android:textSize="28dp" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
