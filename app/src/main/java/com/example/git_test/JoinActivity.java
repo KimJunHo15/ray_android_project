@@ -121,7 +121,9 @@ public class JoinActivity extends AppCompatActivity {
                                     if (code.equals("200")) {
                                         Intent intent_Join = new Intent(JoinActivity.this, MainActivity.class);
                                         startActivity(intent_Join);
-                                    } else if (code.equals("400")) {
+                                    } else if (code.equals("200")) {
+                                        Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다. 다시 한 번 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                                        return;
 
                                     }
                                 } catch (JSONException e) {
@@ -150,7 +152,8 @@ public class JoinActivity extends AppCompatActivity {
                         params.put("user_name", data3);
                         params.put("user_birth", data4);
                         params.put("user_gender", data5);
-                        params.put("user_type", data6);
+                        params.put("user_gender", data6);
+                        params.put("user_type", data7);
 
                         return params;
                     }
