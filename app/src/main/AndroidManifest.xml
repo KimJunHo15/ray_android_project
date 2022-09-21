@@ -18,6 +18,7 @@ package="com.example.git_test">
     android:theme="@style/Theme.Git_test"
     tools:replace="android:appComponentFactory"
     android:appComponentFactory="whateverString"
+    android:usesCleartextTraffic="true"
     tools:targetApi="31">
     <activity
         android:name=".IndexActivity"
