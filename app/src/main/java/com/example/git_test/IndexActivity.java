@@ -72,7 +72,7 @@ public class IndexActivity extends AppCompatActivity {
 
             TedPermission.with(this)
                     .setPermissionListener(permissionListener)
-                    .setRationaleMessage("서비스 이용을 위해 갤러리, 카메라 접근 권한이 필요합니다.")
+                    .setRationaleMessage("서비스 이용을 위해 갤러리, 카메라 및 인터넷 접근 권한이 필요합니다.")
                     .setDeniedMessage("서비스 이용을 위해서는 [설정] > [권한] 에서 권한을 허용해 주세요.")
                     .setPermissions(new String[] { Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
