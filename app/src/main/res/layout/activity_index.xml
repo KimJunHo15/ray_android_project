@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_index"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     android:padding="6dp"
     tools:context=".IndexActivity">
 
@@ -37,7 +39,7 @@
         android:id="@+id/btn_login"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="84dp"
         android:layout_marginTop="28dp"
         android:text="로그인"
         android:textSize="20dp"
@@ -68,5 +70,15 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="@+id/et_pw"
         app:layout_constraintTop_toBottomOf="@+id/et_pw" />
+
+    <CheckBox
+        android:id="@+id/autologin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="자동로그인"
+        app:layout_constraintEnd_toStartOf="@+id/btn_login"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/et_pw"
+        app:layout_constraintTop_toTopOf="@+id/btn_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

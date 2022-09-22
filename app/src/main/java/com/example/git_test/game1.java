@@ -1,9 +1,13 @@
 package com.example.git_test;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -66,6 +70,9 @@ public class game1 extends AppCompatActivity {
                     img_game1_info.setImageResource(R.drawable.img3);
                     tv_game1_info.setText("설명 1");
                     next_cnt += 1;
+                    for (int i = 0; i < btn_game1_num.length; i++) {
+                        Log.d("아이디값 확인", btn_game1_num[i] + "");
+                    }
                 } else if (next_cnt == 1) {
                     img_game1_info.setImageResource(R.drawable.img2);
                     tv_game1_info.setText("설명2");
@@ -92,6 +99,9 @@ public class game1 extends AppCompatActivity {
                                     btn_game1_num[pos].setVisibility(View.INVISIBLE);
                                     answer++;
                                     cnt++;
+                                    tv_game1_now_score.setText(cnt + "");
+                                    if (cnt % 9 == 0)
+                                        makeRandom(cnt);
                                 }
                             }
                         });
@@ -101,6 +111,7 @@ public class game1 extends AppCompatActivity {
         });
     }
 
+    // 버튼 보여주기 & 숨기기
     private void game1_info_hide() {
         img_game1_info.setVisibility(View.INVISIBLE);
         tv_game1_info.setVisibility(View.INVISIBLE);
@@ -129,12 +140,8 @@ public class game1 extends AppCompatActivity {
         tv_game1_best_score.setVisibility(View.INVISIBLE);
     }
 
-    private void start() {
-        if (timerStatus == TimerStatus.STOPPED) {
-            timerStatus = TimerStatus.STARTED;
-        }
-    }
 
+    // 버튼에 보여지는 숫자 적용 및 변경
     private void makeRandom(int cnt) {
         Random rd = new Random();
         for (int i = 0; i < lotto.length; i++) {
@@ -150,7 +157,9 @@ public class game1 extends AppCompatActivity {
             btn_game1_num[i].setText(lotto[i] + "");
             btn_game1_num[i].setVisibility(View.VISIBLE);
         }
-//    private void startCountDownTimer(){
+    }
+
+    //    private void startCountDownTimer(){
 //         countDownTimer = new CountDownTimer(timeCount,1000){
 //            @Override
 //            public void onTick(long l) {
@@ -160,5 +169,39 @@ public class game1 extends AppCompatActivity {
 //            }
 //        }
 //    }
+    private void start() {
+        if (timerStatus == TimerStatus.STOPPED) {
+            timerStatus = TimerStatus.STARTED;
+        }
+    }
+
+    // 타이머 핸들러
+    Handler timerHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            int time = msg.arg1;
+
+        }
+    };
+
+    // 타이머 쓰레드
+    class timerThread extends Thread {
+        @Override
+        public void run() {
+            for (int i = 10; i >= 0; i--) {
+                try {
+                    Thread.sleep(1000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Message message = new Message();
+                message.arg1 = i;
+                timerHandler.sendMessage(message);
+
+            }
+        }
+
+
     }
 }

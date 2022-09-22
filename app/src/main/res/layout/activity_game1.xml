@@ -30,7 +30,8 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="button"
+                android:text="1"
+                android:textSize="48dp"
                 android:visibility="invisible" />
 
             <Button
@@ -42,7 +43,8 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="Button"
+                android:text="2"
+                android:textSize="48dp"
                 android:visibility="invisible" />
 
             <Button
@@ -54,7 +56,8 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="Button"
+                android:text="3"
+                android:textSize="48dp"
                 android:visibility="invisible" />
         </TableRow>
 
@@ -72,11 +75,12 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="Button"
+                android:text="4"
+                android:textSize="48dp"
                 android:visibility="invisible" />
 
             <Button
-                android:id="@+id/btn_game_nu5"
+                android:id="@+id/btn_game_num5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -84,7 +88,8 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="Button"
+                android:text="5"
+                android:textSize="48dp"
                 android:visibility="invisible" />
 
             <Button
@@ -96,7 +101,8 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="Button"
+                android:text="6"
+                android:textSize="48dp"
                 android:visibility="invisible" />
         </TableRow>
 
@@ -114,7 +120,8 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="Button"
+                android:text="7"
+                android:textSize="48dp"
                 android:visibility="invisible" />
 
             <Button
@@ -126,7 +133,8 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="Button"
+                android:text="8"
+                android:textSize="48dp"
                 android:visibility="invisible" />
 
             <Button
@@ -138,7 +146,8 @@
                 android:insetTop="6dp"
                 android:insetRight="6dp"
                 android:insetBottom="6dp"
-                android:text="Button"
+                android:text="9"
+                android:textSize="48dp"
                 android:visibility="invisible" />
         </TableRow>
 

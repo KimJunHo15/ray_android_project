@@ -2,15 +2,21 @@ package com.example.git_test;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,22 +40,35 @@ import java.util.Map;
 
 public class IndexActivity extends AppCompatActivity {
 
+    public static Context iContext;
+
     Button btn_login, btn_join;
     EditText et_id, et_pw;
     RequestQueue requestQueue;
     StringRequest request;
-
+    ConstraintLayout cl_index;
+    CheckBox autologin;
+    SharedPreferences auto;
+    String mem_id, mem_pw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+        iContext = this;
 
         btn_login = findViewById(R.id.btn_login);
         btn_join = findViewById(R.id.btn_join);
         et_id = findViewById(R.id.et_id);
         et_pw = findViewById(R.id.et_pw);
+        cl_index = findViewById(R.id.cl_index);
+        autologin = findViewById(R.id.autologin);
+        auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor autoLoginEdit = auto.edit();
+        mem_id = auto.getString("mem_id",null);
+        mem_pw = auto.getString("mem_pw",null);
 
+        autologin_method();
 
         String l_url2 = "http://127.0.0.1:8000/m_login";
         String l_url = "http://10.0.2.2:8000/mobile/login";
@@ -63,6 +82,14 @@ public class IndexActivity extends AppCompatActivity {
             PermissionListener permissionListener = new PermissionListener() {
                 @Override
                 public void onPermissionGranted() {
+                    cl_index.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
+                    });
+
                     btn_login.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -81,8 +108,14 @@ public class IndexActivity extends AppCompatActivity {
                                                 JSONObject json = new JSONObject(response);
                                                 String code = json.getString("code");
                                                 if (code.equals("200")) {
+                                                    if(autologin.isChecked()){
+                                                        autoLoginEdit.putString("mem_id", data);
+                                                        autoLoginEdit.putString("mem_pw", data2);
+                                                        autoLoginEdit.commit();
+                                                    }
                                                     Intent intent_login = new Intent(IndexActivity.this, MainActivity.class);
                                                     startActivity(intent_login);
+                                                    finish();
                                                 } else if (code.equals("400")) {
                                                     Toast.makeText(IndexActivity.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                                                 } else if (code.equals("500")) {
@@ -155,7 +188,18 @@ public class IndexActivity extends AppCompatActivity {
                             Manifest.permission.INTERNET})
                     .check();
         }
+    }
 
 
+    public void autologin_method(){
+        if(mem_id!=null && mem_pw!=null){
+            Intent intent_login = new Intent(IndexActivity.this, MainActivity.class);
+            startActivity(intent_login);
+            finish();
+        }
+    }
+    public void autologin_logout(){
+        mem_id = null;
+        mem_pw = null;
     }
 }
