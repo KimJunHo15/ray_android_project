@@ -1,6 +1,5 @@
 package com.example.git_test;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;

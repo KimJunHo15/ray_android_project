@@ -50,7 +50,7 @@ public class foodAdapter extends BaseAdapter {
         tv_food_t.setText(data.get(i).getTv_food_t());
         TextView tv_food_c = view.findViewById(R.id.tv_food_c);
         tv_food_c.setText(data.get(i).getTv_food_c());
-        ImageView img_food = view.findViewById(R.id.img_column);
+        ImageView img_food = view.findViewById(R.id.img_food);
         img_food.setImageResource(data.get(i).getImg_food());
 
         return view;

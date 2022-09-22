@@ -43,7 +43,7 @@ public class InfoActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fl, new ColumnFragment()).commit();
                         break;
                 }
-                return false;
+                return true;
             }
         });
     }
