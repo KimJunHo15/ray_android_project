@@ -38,10 +38,10 @@ public class FoodFragment extends Fragment {
 
         data.add(new foodVO("강황","강력한 항염증 작용을 하는 강황은 치매에 좋은 음식이다.",R.drawable.imgfood1));
         data.add(new foodVO("호박","호박에 들어있는 식물영양소는 우리뇌를 보호하는 역할을 한다.",R.drawable.imgfood2));
-        data.add(new foodVO("은행","잎에서 추출한 성분으로 치매증상 완화에 사용할 수 있다.",R.drawable.imgfood1));
-        data.add(new foodVO("생선 오메가3","생선에서 추출된 것이 인지장애 예방과 치매예방에 좋다.",R.drawable.imgfood1));
-        data.add(new foodVO("강황","강력한 항염증 작용을 하는 강황은 치매에 좋은 음식이다.",R.drawable.imgfood1));
-        data.add(new foodVO("강황","강력한 항염증 작용을 하는 강황은 치매에 좋은 음식이다.",R.drawable.imgfood1));
+        data.add(new foodVO("은행","잎에서 추출한 성분으로 치매증상 완화에 사용할 수 있다.",R.drawable.imgfood3));
+        data.add(new foodVO("생선 오메가3","생선에서 추출된 것이 인지장애 예방과 치매예방에 좋다.",R.drawable.imgfood4));
+        data.add(new foodVO("현미","뇌를 노화시키는 활성산소를 잡아주고 노폐물을 배출시켜 신경계를 보호해준다.",R.drawable.imgfood5));
+        data.add(new foodVO("다크초콜릿","플라바놀 성분은 뇌 혈류 흐름을 원활히 해주는 성분으로 뇌졸중 예방에 도움이 되기도 한다.",R.drawable.imgfood6));
 
         foodAdapter adapter = new foodAdapter(getActivity().getApplicationContext(),R.layout.food_list,data);
         lv_food.setAdapter(adapter);
