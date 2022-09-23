@@ -42,6 +42,7 @@ public class Exam_upload extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, REQUEST_CODE);
+
             }
         });
         btn_re_select.setOnClickListener(new View.OnClickListener() {
