@@ -64,17 +64,23 @@ public class IndexActivity extends AppCompatActivity {
         cl_index = findViewById(R.id.cl_index);
         autologin = findViewById(R.id.autologin);
         auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor autoLoginEdit = auto.edit();
-        mem_id = auto.getString("mem_id",null);
-        mem_pw = auto.getString("mem_pw",null);
 
-        autologin_method();
+//        mem_id = auto.getString("mem_id",null);
+//        mem_pw = auto.getString("mem_pw",null);
+
+        
 
         String l_url2 = "http://127.0.0.1:8000/m_login";
         String l_url = "http://10.0.2.2:8000/mobile/login";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
+        //자동 로그인 기능
 
+        if(auto!=null){
+            autologin_method();
+        }
+
+        
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR);
         Log.d("권한", permissionCheck + "");
         if (permissionCheck == PackageManager.PERMISSION_DENIED) {
@@ -82,6 +88,8 @@ public class IndexActivity extends AppCompatActivity {
             PermissionListener permissionListener = new PermissionListener() {
                 @Override
                 public void onPermissionGranted() {
+                    
+                    // 키보드 외 부분 클릭시 키보드 내려가는 기능
                     cl_index.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -90,6 +98,7 @@ public class IndexActivity extends AppCompatActivity {
                         }
                     });
 
+                    // 로그인 기능
                     btn_login.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -109,13 +118,21 @@ public class IndexActivity extends AppCompatActivity {
                                                 String code = json.getString("code");
                                                 if (code.equals("200")) {
                                                     if(autologin.isChecked()){
+                                                        SharedPreferences.Editor autoLoginEdit = auto.edit();
                                                         autoLoginEdit.putString("mem_id", data);
                                                         autoLoginEdit.putString("mem_pw", data2);
                                                         autoLoginEdit.commit();
                                                     }
+//                                                    if(autologin.isChecked()){
+//
+//                                                        autoLoginEdit.putString("mem_id", data);
+//                                                        autoLoginEdit.putString("mem_pw", data2);
+//                                                        autoLoginEdit.commit();
+//                                                    }
                                                     Intent intent_login = new Intent(IndexActivity.this, MainActivity.class);
                                                     startActivity(intent_login);
                                                     finish();
+
                                                 } else if (code.equals("400")) {
                                                     Toast.makeText(IndexActivity.this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                                                 } else if (code.equals("500")) {
@@ -192,14 +209,21 @@ public class IndexActivity extends AppCompatActivity {
 
 
     public void autologin_method(){
-        if(mem_id!=null && mem_pw!=null){
-            Intent intent_login = new Intent(IndexActivity.this, MainActivity.class);
-            startActivity(intent_login);
-            finish();
+//        SharedPreferences auto = getSharedPreferences("autologin",MODE_PRIVATE);
+
+        if(auto!=null){
+            mem_id = auto.getString("mem_id",mem_id);
+            mem_pw = auto.getString("mem_pw",mem_pw);
+            if(mem_id!=null && mem_pw!=null){
+                Intent intent_login = new Intent(IndexActivity.this, MainActivity.class);
+                startActivity(intent_login);
+                finish();
+            }
         }
     }
     public void autologin_logout(){
-        mem_id = null;
-        mem_pw = null;
+//        mem_id = null;
+//        mem_pw = null;
+//        SharedPreferences.Editor editor = SharedPreferences.edit();
     }
 }
