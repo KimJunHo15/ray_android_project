@@ -1,24 +1,72 @@
 package com.example.git_test;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import javax.security.auth.login.LoginException;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.example.git_test.Model.Data;
+import com.example.git_test.Model.MyVO;
+//import com.example.git_test.Model.Myadapter;
+import com.example.git_test.Model.RecyclerAdaper;
 
-public class MyActivity extends AppCompatActivity{
+import org.json.JSONObject;
 
-    ImageView img_return_m;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.http.Url;
+
+public class MyActivity extends AppCompatActivity {
+
+    ImageView img_return_m,img_test;
     TextView tv_name, tv_birth, tv_gender;
+    RecyclerView rv;
     Button btn_logout;
 
+    String mem_id = "";
+    RequestQueue requestQueue, requestQueue_img;
+    StringRequest request;
+    StringRequest request_img;
+
+    ArrayList<MyVO> myVO = new ArrayList<MyVO>();
+
+    Bitmap bitmap;
+    private RecyclerAdaper adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +78,133 @@ public class MyActivity extends AppCompatActivity{
         tv_birth = findViewById(R.id.tv_birth);
         tv_gender = findViewById(R.id.tv_gender);
         btn_logout = findViewById(R.id.btn_logout);
+        rv = findViewById(R.id.rv);
 
+        tv_name.setText("-");
+        tv_gender.setText("-");
+        tv_birth.setText("-");
+
+        String image_url = "http://10.0.2.2:8000/media/IMG_20220920_074307_8Qyi4F5.jpg";
+
+        init();
+
+
+
+        img_test = findViewById(R.id.img_test);
+
+
+
+
+
+        // 현재 사용자 아이디 가지고오기
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        mem_id = auto.getString("mem_id", mem_id);
+
+        String data = mem_id;
+
+        // 데이터 송수신용 서버
+        String url = "http://10.0.2.2:8000/mobile/showmember";
+        String url_img = "http://10.0.2.2:8000/mobile/scoredata";
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue_img = Volley.newRequestQueue(getApplicationContext());
+
+        // 아이디에 맞는 회원 정보 보여주기
+        request = new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject json = new JSONObject(response);
+
+                            String mem_birth = json.getString("mem_birth");
+                            String mem_gender = json.getString("mem_gender");
+                            String mem_name = json.getString("mem_name");
+
+                            tv_name.setText(mem_name);
+                            tv_birth.setText(mem_birth);
+                            tv_gender.setText(mem_gender);
+
+
+                        } catch (Exception e) {
+                            Toast.makeText(MyActivity.this, "에러발생", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MyActivity.this, error + "", Toast.LENGTH_SHORT).show();
+                        Log.d("error_info",error.toString());
+                    }
+                }
+
+        ) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+
+                params.put("mem_id", data);
+                return params;
+            }
+        };
+        requestQueue.add(request);
+
+        // 이미지, 결과, 검사 시간 받아오기
+
+        request_img = new StringRequest(
+                Request.Method.POST,
+                url_img,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject json = new JSONObject(response);
+
+                            String imgurl = json.getString("imgurl");
+                            Log.d("imgurl2",imgurl);
+                            String score = json.getString("score");
+                            Log.d("score2",score);
+                            String date = json.getString("date");
+                            Log.d("date",date);
+                            String plus = "http://10.0.2.2:8000/"+ imgurl;
+                            getData(score,date,plus);
+
+                        } catch (Exception e) {
+                            Toast.makeText(MyActivity.this, "에러발생", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MyActivity.this, error + "", Toast.LENGTH_SHORT).show();
+                        Log.d("error_img",error.toString());
+                    }
+                }
+
+        ) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+
+                params.put("mem_id", data);
+                return params;
+            }
+        };
+        requestQueue_img.add(request_img);
+
+
+
+
+        // 메인메뉴로 돌아가기
         img_return_m.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,6 +213,8 @@ public class MyActivity extends AppCompatActivity{
             }
         });
 
+
+        // 로그아웃 기능
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +237,30 @@ public class MyActivity extends AppCompatActivity{
                 finish();
             }
         });
-
     }
+
+    private void init(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rv.setLayoutManager(linearLayoutManager);
+
+        adapter= new RecyclerAdaper();
+        rv.setAdapter(adapter);
+    }
+    private void getData(String score,String date, String url){
+        List<String> listScore = Arrays.asList(score);
+        List<String> listDate = Arrays.asList(date);
+        List<String> listUrl = Arrays.asList(url);
+
+        for(int i =0; i<listScore.size();i++){
+            Data data = new Data();
+            data.setScore(listScore.get(i));
+            data.setDate(listDate.get(i));
+            data.setImgurl(listUrl.get(i));
+
+            adapter.additem(data);
+        }
+        adapter.notifyDataSetChanged();
+    }
+
 }
+

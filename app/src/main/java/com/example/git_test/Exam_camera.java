@@ -54,8 +54,8 @@ public class Exam_camera extends AppCompatActivity {
     private File photoFile;
     String id = "";
 
-    SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
-    SharedPreferences.Editor autoLoginEdit = auto.edit();
+
+
 
 
     @Override
@@ -66,6 +66,8 @@ public class Exam_camera extends AppCompatActivity {
         btn_camera_send = findViewById(R.id.btn_camera_send);
         btn_re_capture = findViewById(R.id.btn_re_capture);
 
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor autoLoginEdit = auto.edit();
         id = auto.getString("mem_id", id);
 
         camera();

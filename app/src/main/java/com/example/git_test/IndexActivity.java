@@ -50,6 +50,7 @@ public class IndexActivity extends AppCompatActivity {
     CheckBox autologin;
     SharedPreferences auto;
     String mem_id, mem_pw;
+    boolean check = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class IndexActivity extends AppCompatActivity {
         et_pw = findViewById(R.id.et_pw);
         cl_index = findViewById(R.id.cl_index);
         autologin = findViewById(R.id.autologin);
+        autologin.setVisibility(View.INVISIBLE);
         auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
 
 //        mem_id = auto.getString("mem_id",null);
@@ -76,9 +78,9 @@ public class IndexActivity extends AppCompatActivity {
 
         //자동 로그인 기능
 
-        if(auto!=null){
-            autologin_method();
-        }
+
+        autologin_method();
+
 
         
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR);
@@ -117,18 +119,22 @@ public class IndexActivity extends AppCompatActivity {
                                                 JSONObject json = new JSONObject(response);
                                                 String code = json.getString("code");
                                                 if (code.equals("200")) {
-                                                    if(autologin.isChecked()){
-                                                        SharedPreferences.Editor autoLoginEdit = auto.edit();
-                                                        autoLoginEdit.putString("mem_id", data);
-                                                        autoLoginEdit.putString("mem_pw", data2);
-                                                        autoLoginEdit.commit();
-                                                    }
 //                                                    if(autologin.isChecked()){
-//
+//                                                        check = true;
+//                                                        Log.d("boolean", String.valueOf(check));
+//                                                        SharedPreferences.Editor autoLoginEdit = auto.edit();
 //                                                        autoLoginEdit.putString("mem_id", data);
 //                                                        autoLoginEdit.putString("mem_pw", data2);
 //                                                        autoLoginEdit.commit();
 //                                                    }
+//                                                    else{
+                                                        auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+                                                        SharedPreferences.Editor autoLoginEdit = auto.edit();
+                                                        autoLoginEdit.putString("mem_id", data);
+                                                        autoLoginEdit.putString("mem_pw", data2);
+                                                        autoLoginEdit.commit();
+//                                                    }
+
                                                     Intent intent_login = new Intent(IndexActivity.this, MainActivity.class);
                                                     startActivity(intent_login);
                                                     finish();

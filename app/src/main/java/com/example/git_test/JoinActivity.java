@@ -2,11 +2,14 @@ package com.example.git_test;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -36,6 +39,7 @@ public class JoinActivity extends AppCompatActivity {
     StringRequest request;
     RadioGroup radio_join;
     String type;
+    ConstraintLayout cl;
 //    SimpleDateFormat joinDate;
 
     @Override
@@ -50,7 +54,15 @@ public class JoinActivity extends AppCompatActivity {
         ed_birth = findViewById(R.id.ed_birth);
         ed_gender = findViewById(R.id.ed_gender);
         radio_join = findViewById(R.id.radio_join);
-       // joinDate= new SimpleDateFormat("yyyy-MM-dd");
+        cl = findViewById(R.id.cl);
+
+        cl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        });
 
         radio_join.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
