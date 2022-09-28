@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".TrainingFragment">
 
-    <ListView
-        android:id="@+id/lv_training"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/training_rv"
+        android:layout_width="718dp"
+        android:layout_height="1278dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
