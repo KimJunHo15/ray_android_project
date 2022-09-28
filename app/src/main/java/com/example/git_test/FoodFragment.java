@@ -2,7 +2,10 @@ package com.example.git_test;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,42 +13,106 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.git_test.Model.Data;
+import com.example.git_test.Model.RecyclerAdaper;
 import com.example.git_test.Model.columnAdapter;
 import com.example.git_test.Model.columnVO;
 import com.example.git_test.Model.foodAdapter;
 import com.example.git_test.Model.foodVO;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 
 public class FoodFragment extends Fragment {
 
     ArrayList<foodVO> data = new ArrayList<>();
-    ListView lv_food;
+    RecyclerView food_rv;
     TextView tv_food_t, tv_food_c;
     ImageView img_food;
+
+    RequestQueue requestQueue;
+    StringRequest request;
+    private RecyclerAdaper adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_food, container, false);
 
-        lv_food = view.findViewById(R.id.lv_food);
+        food_rv =view.findViewById(R.id.food_rv);
         tv_food_t = view.findViewById(R.id.tv_food_t);
         tv_food_c = view.findViewById(R.id.tv_food_c);
         img_food = view.findViewById(R.id.img_food);
 
-        data.add(new foodVO("강황","강력한 항염증 작용을 하는 강황은 치매에 좋은 음식이다.",R.drawable.imgfood1));
-        data.add(new foodVO("호박","호박에 들어있는 식물영양소는 우리뇌를 보호하는 역할을 한다.",R.drawable.imgfood2));
-        data.add(new foodVO("은행","잎에서 추출한 성분으로 치매증상 완화에 사용할 수 있다.",R.drawable.imgfood3));
-        data.add(new foodVO("생선 오메가3","생선에서 추출된 것이 인지장애 예방과 치매예방에 좋다.",R.drawable.imgfood4));
-        data.add(new foodVO("현미","뇌를 노화시키는 활성산소를 잡아주고 노폐물을 배출시켜 신경계를 보호해준다.",R.drawable.imgfood5));
-        data.add(new foodVO("다크초콜릿","플라바놀 성분은 뇌 혈류 흐름을 원활히 해주는 성분으로 뇌졸중 예방에 도움이 되기도 한다.",R.drawable.imgfood6));
+        String url = "http://10.0.2.2:8000/mobile/showmember";
 
-        foodAdapter adapter = new foodAdapter(getActivity().getApplicationContext(),R.layout.food_list,data);
-        lv_food.setAdapter(adapter);
+        init();
+
+        request = new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject json = new JSONObject(response);
+
+                            String food_t = json.getString("food_t");
+                            String food_c = json.getString("food_c");
+                            String food_img = json.getString("food_img");
+                            getData(food_t,food_c,food_img);
+                            
+                        }catch (Exception e){
+                            Toast.makeText(getContext().getApplicationContext(), "오류", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext().getApplicationContext(), error+"", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        requestQueue.add(request);
 
         return view;
+    }
+    private void init(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        food_rv.setLayoutManager(linearLayoutManager);
+
+        adapter= new RecyclerAdaper();
+        food_rv.setAdapter(adapter);
+    }
+    private void getData(String score,String date, String url){
+        List<String> listScore = Arrays.asList(score);
+        List<String> listDate = Arrays.asList(date);
+        List<String> listUrl = Arrays.asList(url);
+
+        for(int i =0; i<listScore.size();i++){
+            Data data = new Data();
+            data.setScore(listScore.get(i));
+            data.setDate(listDate.get(i));
+            data.setImgurl(listUrl.get(i));
+
+            adapter.additem(data);
+        }
+        adapter.notifyDataSetChanged();
     }
 }

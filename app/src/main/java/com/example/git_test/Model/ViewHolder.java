@@ -21,6 +21,5 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         imgurl = itemView.findViewById(R.id.imgurl);
         score = itemView.findViewById(R.id.score);
         date = itemView.findViewById(R.id.date);
-
     }
 }
