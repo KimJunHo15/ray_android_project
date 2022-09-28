@@ -29,4 +29,6 @@ public class Data {
     public void setImgurl(String imgurl) {
         this.imgurl = imgurl;
     }
-}
+
+    }
+

@@ -2,7 +2,6 @@ package com.example.git_test;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,21 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.git_test.Model.Data;
-import com.example.git_test.Model.RecyclerAdaper;
-import com.example.git_test.Model.columnAdapter;
-import com.example.git_test.Model.columnVO;
-import com.example.git_test.Model.foodAdapter;
+import com.example.git_test.Model.RecyclerAdaper_food;
+import com.example.git_test.Model.foodData;
 import com.example.git_test.Model.foodVO;
 
 import org.json.JSONObject;
@@ -33,7 +28,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 
 public class FoodFragment extends Fragment {
@@ -45,7 +39,8 @@ public class FoodFragment extends Fragment {
 
     RequestQueue requestQueue;
     StringRequest request;
-    private RecyclerAdaper adapter;
+    private RecyclerAdaper_food adapter_food;
+    foodData foodData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +69,7 @@ public class FoodFragment extends Fragment {
                             String food_t = json.getString("food_t");
                             String food_c = json.getString("food_c");
                             String food_img = json.getString("food_img");
-                            getData(food_t,food_c,food_img);
+                            getData_food(food_t,food_c,food_img);
                             
                         }catch (Exception e){
                             Toast.makeText(getContext().getApplicationContext(), "오류", Toast.LENGTH_SHORT).show();
@@ -97,22 +92,22 @@ public class FoodFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         food_rv.setLayoutManager(linearLayoutManager);
 
-        adapter= new RecyclerAdaper();
-        food_rv.setAdapter(adapter);
+        adapter_food= new RecyclerAdaper_food();
+        food_rv.setAdapter(adapter_food);
     }
-    private void getData(String score,String date, String url){
-        List<String> listScore = Arrays.asList(score);
-        List<String> listDate = Arrays.asList(date);
-        List<String> listUrl = Arrays.asList(url);
+    private void getData_food(String food_t,String food_c, String food_img){
+        List<String> listfood_t = Arrays.asList(food_t);
+        List<String> listfood_c = Arrays.asList(food_c);
+        List<String> listfood_img = Arrays.asList(food_img);
 
-        for(int i =0; i<listScore.size();i++){
-            Data data = new Data();
-            data.setScore(listScore.get(i));
-            data.setDate(listDate.get(i));
-            data.setImgurl(listUrl.get(i));
+        for(int i =0; i<listfood_t.size();i++){
+            foodData foodData = new foodData();
+            foodData.setFood_t(listfood_t.get(i));
+            foodData.setFood_c(listfood_c.get(i));
+            foodData.setFood_url(listfood_img.get(i));
 
-            adapter.additem(data);
+            adapter_food.food_additem(foodData);
         }
-        adapter.notifyDataSetChanged();
+        adapter_food.notifyDataSetChanged();
     }
 }

@@ -34,7 +34,7 @@ public class RecyclerAdaper_food extends RecyclerView.Adapter<RecyclerAdaper_foo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return foodData.size();
     }
 
     public void food_additem(foodData Data){

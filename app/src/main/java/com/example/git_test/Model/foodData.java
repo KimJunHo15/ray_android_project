@@ -29,4 +29,5 @@ public class foodData {
     public void setFood_url(String food_url) {
         this.food_url = food_url;
     }
+
 }
