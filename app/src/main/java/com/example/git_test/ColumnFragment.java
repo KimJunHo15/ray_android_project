@@ -3,6 +3,7 @@ package com.example.git_test;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class ColumnFragment extends Fragment {
 
     ArrayList<columnVO> data = new ArrayList<>();
-    ListView lv_column;
+    RecyclerView column_rv;
     TextView tv_column_t, tv_column_c;
     ImageView img_column;
 
@@ -29,7 +30,7 @@ public class ColumnFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_column, container, false);
 
-        lv_column = view.findViewById(R.id.lv_column);
+        column_rv = view.findViewById(R.id.column_rv);
         tv_column_c = view.findViewById(R.id.tv_column_c);
         tv_column_t = view.findViewById(R.id.tv_column_t);
         img_column = view.findViewById(R.id.img_column);
@@ -40,8 +41,8 @@ public class ColumnFragment extends Fragment {
         data.add(new columnVO("테스트3","테스트3",R.drawable.img3));
         data.add(new columnVO("테스트4","테스트4",R.drawable.img4));
 
-        columnAdapter adapter = new columnAdapter(getActivity().getApplicationContext(), R.layout.column_list,data);
-        lv_column.setAdapter(adapter);
+//        columnAdapter adapter = new columnAdapter(getActivity().getApplicationContext(), R.layout.column_list,data);
+//        column_rv.setAdapter(adapter);
 
         return view;
     }

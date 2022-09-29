@@ -3,6 +3,7 @@ package com.example.git_test;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class TrainingFragment extends Fragment {
 
     ArrayList<trainingVO>data = new ArrayList<trainingVO>();
-    ListView lv_training;
+    RecyclerView training_rv;
     TextView tv_training_t, tv_training_c;
     ImageView img_training;
 
@@ -32,7 +33,7 @@ public class TrainingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_training, container, false);
 
-        lv_training = view.findViewById(R.id.lv_training);
+        training_rv = view.findViewById(R.id.training_rv);
         tv_training_t = view.findViewById(R.id.tv_training_t);
         tv_training_c = view.findViewById(R.id.tv_training_c);
         img_training = view.findViewById(R.id.img_training);
@@ -41,9 +42,9 @@ public class TrainingFragment extends Fragment {
         data.add(new trainingVO("걷기","건강도 완화되어 활력이 증진된다.",R.drawable.img1));
         data.add(new trainingVO("유산소운동","뇌에 들어오는 혈류 또한 촉진하는데 도움이 된다.",R.drawable.img1));
         data.add(new trainingVO("손운동","집에서 간단하게 할 수 있는 것으로 잼잼 동작을 해보는 것이 좋다.",R.drawable.img1));
-
-        trainingAdapter adapter = new trainingAdapter(getActivity().getApplicationContext(),R.layout.training_list,data);
-        lv_training.setAdapter(adapter);
+//
+//        trainingAdapter adapter = new trainingAdapter(getActivity().getApplicationContext(),R.layout.training_list,data);
+//        training_rv.setAdapter(adapter);
 
         return view;
     }
