@@ -1,5 +1,6 @@
 package com.example.git_test;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,7 @@ public class TrainingFragment extends Fragment {
     RecyclerView training_rv;
     TextView tv_training_t, tv_training_c;
     ImageView img_training;
+    Context context;
 
     RequestQueue requestQueue;
     StringRequest request;

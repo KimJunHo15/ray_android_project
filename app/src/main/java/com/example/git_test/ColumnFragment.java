@@ -1,5 +1,6 @@
 package com.example.git_test;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -39,6 +40,7 @@ public class ColumnFragment extends Fragment {
     RecyclerView column_rv;
     TextView tv_column_t, tv_column_c;
     ImageView img_column;
+    Context context;
 
     RequestQueue requestQueue;
     StringRequest request;
