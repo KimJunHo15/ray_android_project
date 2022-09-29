@@ -92,6 +92,7 @@ public class MyActivity extends AppCompatActivity {
 
         init();
 
+
         // 현재 사용자 아이디 가지고오기
         SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
         mem_id = auto.getString("mem_id", mem_id);
