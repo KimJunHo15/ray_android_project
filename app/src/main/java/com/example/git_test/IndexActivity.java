@@ -50,7 +50,8 @@ public class IndexActivity extends AppCompatActivity {
     CheckBox autologin;
     SharedPreferences auto;
     String mem_id, mem_pw;
-    boolean check = false;
+ //   boolean check = false;
+    boolean click_index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,20 @@ public class IndexActivity extends AppCompatActivity {
                             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         }
                     });
+                    cl_index.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (click_index ==true){
+                                showSystemUI();
+                                click_index = false;
+                            }
+                            else{
+                                hideSystemUI();
+                                click_index = true;
+                            }
+                        }
+                    });
+
 
                     // 로그인 기능
                     btn_login.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +227,32 @@ public class IndexActivity extends AppCompatActivity {
                     .check();
         }
     }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
 
 
     public void autologin_method(){
@@ -227,9 +268,8 @@ public class IndexActivity extends AppCompatActivity {
             }
         }
     }
-    public void autologin_logout(){
+ //   public void autologin_logout(){
 //        mem_id = null;
 //        mem_pw = null;
 //        SharedPreferences.Editor editor = SharedPreferences.edit();
     }
-}

@@ -6,10 +6,11 @@
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/git_test/app/src/main/res/layout/activity_main.xml" value="0.2857789855072464" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/drawable/shape_for_circle_button.xml" value="0.1215" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_exam.xml" value="0.33" />
+        <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_exam_camera.xml" value="0.1" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_exam_upload.xml" value="0.33" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_game.xml" value="0.35507246376811596" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_game1.xml" value="0.31741573033707865" />
-        <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_game2.xml" value="0.3235294117647059" />
+        <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_game2.xml" value="0.18307291666666667" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_game4.xml" value="0.18307291666666667" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_index.xml" value="0.33" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_info.xml" value="0.16" />
@@ -18,7 +19,7 @@
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/activity_my.xml" value="0.5" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/column_list.xml" value="0.33" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/food_list.xml" value="0.12" />
-        <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/fragment_column.xml" value="0.18" />
+        <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/fragment_column.xml" value="0.1" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/fragment_food.xml" value="0.33" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/fragment_main.xml" value="0.2" />
         <entry key="..\:/Users/smhrd/AndroidStudioProjects/ray_android_project/app/src/main/res/layout/fragment_training.xml" value="0.36614583333333334" />
