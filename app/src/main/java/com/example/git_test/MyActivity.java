@@ -2,6 +2,7 @@ package com.example.git_test;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,6 +58,8 @@ public class MyActivity extends AppCompatActivity {
     TextView tv_name, tv_birth, tv_gender;
     RecyclerView rv;
     Button btn_logout;
+    ConstraintLayout cl_my;
+    boolean click_my;
 
     String mem_id = "";
     RequestQueue requestQueue, requestQueue_img;
@@ -79,6 +82,7 @@ public class MyActivity extends AppCompatActivity {
         tv_gender = findViewById(R.id.tv_gender);
         btn_logout = findViewById(R.id.btn_logout);
         rv = findViewById(R.id.rv);
+        cl_my = findViewById(R.id.cl_my);
 
         tv_name.setText("-");
         tv_gender.setText("-");
@@ -193,8 +197,19 @@ public class MyActivity extends AppCompatActivity {
         };
         requestQueue_img.add(request_img);
 
-
-
+        cl_my.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (click_my ==true){
+                    showSystemUI();
+                    click_my = false;
+                }
+                else{
+                    hideSystemUI();
+                    click_my = true;
+                }
+            }
+        });
 
         // 메인메뉴로 돌아가기
         img_return_m.setOnClickListener(new View.OnClickListener() {
@@ -231,6 +246,7 @@ public class MyActivity extends AppCompatActivity {
         });
     }
 
+
     private void init(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(linearLayoutManager);
@@ -252,7 +268,36 @@ public class MyActivity extends AppCompatActivity {
             adapter.additem(data);
         }
         adapter.notifyDataSetChanged();
+
     }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
+
 
 }
 

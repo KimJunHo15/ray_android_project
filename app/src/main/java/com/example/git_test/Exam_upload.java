@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.apache.commons.io.IOUtils;
 
@@ -47,6 +48,8 @@ public class Exam_upload extends AppCompatActivity {
     ImageView img_upload_img;
     Button btn_upload, btn_upload_send, btn_re_select;
     TextView tv_filename;
+    ConstraintLayout cl_upload;
+    boolean click_upload;
     private File photoFile;
     String id = "";
 
@@ -60,11 +63,27 @@ public class Exam_upload extends AppCompatActivity {
         btn_upload_send = findViewById(R.id.btn_upload_send);
         btn_re_select = findViewById(R.id.btn_re_select);
         tv_filename = findViewById(R.id.tv_filename);
+        cl_upload = findViewById(R.id.cl_upload);
         img_upload_img.setImageResource(R.drawable.big_logo);
+
 
         SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
         SharedPreferences.Editor autoLoginEdit = auto.edit();
         id = auto.getString("mem_id", id);
+
+        cl_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (click_upload ==true){
+                    showSystemUI();
+                    click_upload = false;
+                }
+                else{
+                    hideSystemUI();
+                    click_upload = true;
+                }
+            }
+        });
 
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +108,33 @@ public class Exam_upload extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
 
 
     // 버튼, 이미지 visible 설정

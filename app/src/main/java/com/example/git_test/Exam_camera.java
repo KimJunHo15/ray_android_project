@@ -4,6 +4,7 @@ import static com.example.git_test.Exam_upload.rotateBitmap;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 
 import android.annotation.SuppressLint;
@@ -51,6 +52,8 @@ public class Exam_camera extends AppCompatActivity {
 
     ImageView img_camera_pre;
     Button btn_camera_send, btn_re_capture;
+    ConstraintLayout cl_camera;
+    boolean click_camera;
     private File photoFile;
     String id = "";
 
@@ -65,12 +68,27 @@ public class Exam_camera extends AppCompatActivity {
         img_camera_pre = findViewById(R.id.img_camera_pre);
         btn_camera_send = findViewById(R.id.btn_camera_send);
         btn_re_capture = findViewById(R.id.btn_re_capture);
+        cl_camera = findViewById(R.id.cl_camera);
 
         SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
         SharedPreferences.Editor autoLoginEdit = auto.edit();
         id = auto.getString("mem_id", id);
 
         camera();
+
+        cl_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (click_camera ==true){
+                    showSystemUI();
+                    click_camera = false;
+                }
+                else{
+                    hideSystemUI();
+                    click_camera = true;
+                }
+            }
+        });
 
         btn_re_capture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +104,35 @@ public class Exam_camera extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
+
     private void camera(){
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if(i.resolveActivity(Exam_camera.this.getPackageManager())!=null){
