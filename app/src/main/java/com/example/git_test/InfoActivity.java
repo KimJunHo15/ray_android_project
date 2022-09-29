@@ -16,7 +16,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class InfoActivity extends AppCompatActivity {
 
     BottomNavigationView bnv;
-    ImageView img_return_i;
+    //ImageView img_return_i;
     ConstraintLayout cl_info;
     boolean click_info;
 
@@ -27,7 +27,7 @@ public class InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info);
 
         bnv = findViewById(R.id.bnv);
-        img_return_i = findViewById(R.id.img_return_i);
+        //img_return_i = findViewById(R.id.img_return_i);
         cl_info = findViewById(R.id.cl_info);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl, new MainFragment()).commit();
 
