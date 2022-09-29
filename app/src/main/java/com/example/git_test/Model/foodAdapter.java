@@ -56,5 +56,4 @@ public class foodAdapter extends BaseAdapter {
         return view;
     }
 
-
 }
