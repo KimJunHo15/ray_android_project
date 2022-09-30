@@ -28,7 +28,7 @@
         android:id="@+id/img_camera"
         android:layout_width="320dp"
         android:layout_height="360dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
@@ -38,7 +38,7 @@
         android:id="@+id/img_upload"
         android:layout_width="320dp"
         android:layout_height="360dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="56dp"
         app:layout_constraintStart_toEndOf="@+id/img_camera"
         app:layout_constraintTop_toTopOf="@+id/img_camera"
         app:srcCompat="@drawable/show" />

@@ -62,7 +62,7 @@ public class TrainingFragment extends Fragment {
         tv_training_c = view.findViewById(R.id.tv_training_c);
         img_training = view.findViewById(R.id.img_training);
 
-        String url = "http://10.0.2.2:8000/mobile/showmember";
+        String url = "http://10.0.2.2:8000/info/train";
 
         init();
 
