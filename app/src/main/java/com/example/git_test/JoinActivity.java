@@ -85,13 +85,13 @@ public class JoinActivity extends AppCompatActivity {
                 switch (i){
                     case R.id.radio_client:
                         type="n";
-                        Toast.makeText(JoinActivity.this, "type:"+type, Toast.LENGTH_SHORT).show();
+                        break;
                     case R.id.radio_parent:
                         type="p";
-                        Toast.makeText(JoinActivity.this, "type:"+type, Toast.LENGTH_SHORT).show();
+                        break;
                     case R.id.radio_doctor:
                         type="d";
-                        Toast.makeText(JoinActivity.this, "type:"+type, Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
         });

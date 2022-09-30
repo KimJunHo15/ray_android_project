@@ -4,6 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9C27B0"
+    android:padding="6dp"
     tools:context=".game3">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="720dp"
+        android:layout_height="800dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline10">
+
+        <ImageView
+            android:id="@+id/game3_img_8"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toEndOf="@+id/game3_img_7"
+            app:layout_constraintTop_toTopOf="@+id/game3_img_7"
+            app:srcCompat="@drawable/big_logo" />
+
+        <ImageView
+            android:id="@+id/game3_img_7"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toStartOf="@+id/game3_img_4"
+            app:layout_constraintTop_toBottomOf="@+id/game3_img_4"
+            app:srcCompat="@drawable/big_logo" />
+
+        <ImageView
+            android:id="@+id/game3_img_3"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toEndOf="@+id/game3_img_2"
+            app:layout_constraintTop_toTopOf="@+id/game3_img_2"
+            app:srcCompat="@drawable/big_logo" />
+
+        <ImageView
+            android:id="@+id/game3_img_4"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toStartOf="@+id/game3_img_1"
+            app:layout_constraintTop_toBottomOf="@+id/game3_img_1"
+            app:srcCompat="@drawable/big_logo" />
+
+        <ImageView
+            android:id="@+id/game3_img_5"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toEndOf="@+id/game3_img_4"
+            app:layout_constraintTop_toTopOf="@+id/game3_img_4"
+            app:srcCompat="@drawable/big_logo" />
+
+        <ImageView
+            android:id="@+id/game3_img_2"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toEndOf="@+id/game3_img_1"
+            app:layout_constraintTop_toTopOf="@+id/game3_img_1"
+            app:srcCompat="@drawable/big_logo" />
+
+        <ImageView
+            android:id="@+id/game3_img_1"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/big_logo" />
+
+        <ImageView
+            android:id="@+id/game3_img_6"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toEndOf="@+id/game3_img_5"
+            app:layout_constraintTop_toTopOf="@+id/game3_img_5"
+            app:srcCompat="@drawable/big_logo" />
+
+        <ImageView
+            android:id="@+id/game3_img_9"
+            android:layout_width="232dp"
+            android:layout_height="258dp"
+            app:layout_constraintStart_toEndOf="@+id/game3_img_8"
+            app:layout_constraintTop_toTopOf="@+id/game3_img_8"
+            app:srcCompat="@drawable/big_logo" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_return_game3"
+        android:layout_width="150dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

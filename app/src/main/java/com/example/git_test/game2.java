@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +28,7 @@ import java.util.Random;
 public class game2 extends AppCompatActivity {
 
     TextView tv_count_5, tv_game2_score;
-    Button btn_test;
+    Button btn_test, btn_test_return;
     ImageView[] game2_img_num;
     ConstraintLayout game2_cl;
 
@@ -41,6 +42,7 @@ public class game2 extends AppCompatActivity {
     //    int[] id = {R.drawable.img1, R.drawable.img2, R.drawable.img3, R.drawable.img4, R.drawable.imgfood1, R.drawable.imgfood2, R.drawable.imgfood3, R.drawable.imgfood4};
     boolean check_click = false;
     int score;
+    boolean roof;
 
 
     @Override
@@ -52,6 +54,7 @@ public class game2 extends AppCompatActivity {
         tv_game2_score = findViewById(R.id.tv_game2_score);
         btn_test = findViewById(R.id.btn_test);
         game2_cl = findViewById(R.id.game2_cl);
+        btn_test_return = findViewById(R.id.btn_test_return);
 
         check_right = new ArrayList<>();
         check_right_id = new ArrayList<>();
@@ -61,17 +64,20 @@ public class game2 extends AppCompatActivity {
 
         hideSystemUI();
 
+        roof = true;
+
         game2_img_num = new ImageView[16];
 
         timeThread Thread = new timeThread();
-
 
         for (int i = 0; i < game2_img_num.length; i++) {
             int img_id = getResources().getIdentifier("game2_img_" + (i + 1), "id", getPackageName());
             game2_img_num[i] = findViewById(img_id);
         }
 
-        game2_set();
+
+            game2_set();
+
 
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +85,20 @@ public class game2 extends AppCompatActivity {
                 Thread.run();
             }
         });
+
+        btn_test_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(game2.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
+
     private void makeTag() {
+        roof=false;
         check_click = true;
 
         Random rd = new Random();
@@ -153,6 +170,7 @@ public class game2 extends AppCompatActivity {
             }
         }
     }
+    int num =0;
 
     private void check_img() {
         if (count_turn >= 2 && check_right.size() == 2) {
@@ -164,9 +182,12 @@ public class game2 extends AppCompatActivity {
                     count_list = count_list + 1;
                     if (count_list == 2) {
                         makeArraylist();
+                        num++;
                         tv_game2_score.setText((score + 5) + "");
                         remain = remain - 2;
                         if (remain == 0) {
+                            num=0;
+                            roof=true;
                         }
                     }
                 }
@@ -213,6 +234,7 @@ public class game2 extends AppCompatActivity {
     }
 
     private void game2_set() {
+
         makeTag();
         for (int i = 0; i < game2_img_num.length; i++) {
             game2_img_num[i].setClickable(false);
@@ -242,6 +264,43 @@ public class game2 extends AppCompatActivity {
                         }, 1000);
                     }
                 });
+            }
+        }
+    }
+
+    private void game2_set_2() {
+
+        if(Integer.parseInt(tv_count_5.getText().toString())%40==0){
+            makeTag();
+            for (int i = 0; i < game2_img_num.length; i++) {
+                game2_img_num[i].setClickable(false);
+                img_show(i);
+                final int turn = i;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        game2_img_num[turn].setImageResource(R.drawable.big_logo);
+                    }
+                }, 5000);
+            }
+            if (countDown == 0) {
+                for (int j = 0; j < game2_img_num.length; j++) {
+                    final int pos = j;
+
+                    game2_img_num[pos].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            count_turn += 1;
+                            activeGame(pos);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    check_img();
+                                }
+                            }, 1000);
+                        }
+                    });
+                }
             }
         }
     }
