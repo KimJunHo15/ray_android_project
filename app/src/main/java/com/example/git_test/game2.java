@@ -55,6 +55,7 @@ public class game2 extends AppCompatActivity {
         btn_test = findViewById(R.id.btn_test);
         game2_cl = findViewById(R.id.game2_cl);
         btn_test_return = findViewById(R.id.btn_test_return);
+        tv_game2_score.setText("0");
 
         check_right = new ArrayList<>();
         check_right_id = new ArrayList<>();
@@ -75,16 +76,8 @@ public class game2 extends AppCompatActivity {
             game2_img_num[i] = findViewById(img_id);
         }
 
-
             game2_set();
 
-
-        btn_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Thread.run();
-            }
-        });
 
         btn_test_return.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,9 +178,8 @@ public class game2 extends AppCompatActivity {
                         num++;
                         tv_game2_score.setText((score + 5) + "");
                         remain = remain - 2;
-                        if (remain == 0) {
-                            num=0;
-                            roof=true;
+                        if (Integer.parseInt(tv_game2_score.getText().toString())%40==0) {
+                            game2_set();
                         }
                     }
                 }
@@ -237,6 +229,7 @@ public class game2 extends AppCompatActivity {
 
         makeTag();
         for (int i = 0; i < game2_img_num.length; i++) {
+            game2_img_num[i].setVisibility(View.VISIBLE);
             game2_img_num[i].setClickable(false);
             img_show(i);
             final int turn = i;
@@ -262,15 +255,6 @@ public class game2 extends AppCompatActivity {
                                 check_img();
                             }
                         }, 1000);
-//                        if(Integer.parseInt(tv_game2_score.getText().toString())%40==0){
-//                            activeGame(pos);
-//                            new Handler().postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    check_img();
-//                                }
-//                            }, 1000);
-//                        }
                     }
                 });
             }

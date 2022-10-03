@@ -128,7 +128,7 @@ public class game4 extends AppCompatActivity {
                 }
             }
         }
-        tv_game4_indicate.setText("다음중 왼솔을 클릭하세요.");
+        tv_game4_indicate.setText("다음중 왼손을 클릭하세요.");
 
         for(int i=0; i<img_game4_num.length; i ++){
             img_game4_num[seq[i]].setTag("right");

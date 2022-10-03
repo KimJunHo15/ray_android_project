@@ -77,23 +77,6 @@ public class game3 extends AppCompatActivity {
             }
         }
 
-//        for (int i = 1; i <= turn; i++) {
-//            equal = String.valueOf(i);
-//            Log.d("equal", equal);
-//
-//            if (game3_img_num_array.get(i).getTag().toString().equals(equal)) {
-//                int pos = i;
-//                game3_img_num_array.get(pos).setImageResource(R.drawable.img4_2);
-//                Log.d("tag", game3_img_num_array.get(pos).getTag().toString());
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        game3_img_num_array.get(pos).setImageResource(R.drawable.big_logo);
-//                    }
-//                }, 2000);
-//            }
-//        }
-
     }
 
     private void makeTag() {
