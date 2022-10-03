@@ -21,7 +21,7 @@ public class game3 extends AppCompatActivity {
 
     Button btn_return_game3;
     ImageView[] game3_img_num;
-    int time;
+    int turn;
     int cnt;
     String equal;
 
@@ -35,7 +35,8 @@ public class game3 extends AppCompatActivity {
         btn_return_game3 = findViewById(R.id.btn_return_game3);
 
         game3_img_num = new ImageView[9];
-        time = rd.nextInt(7) + 2;
+        turn = rd.nextInt(7) + 2;
+
 
         for (int i = 0; i < game3_img_num.length; i++) {
             int img_id = getResources().getIdentifier("game3_img_" + (i + 1), "id", getPackageName());
@@ -49,39 +50,55 @@ public class game3 extends AppCompatActivity {
         }
         Collections.shuffle(game3_img_num_array);
 
-        for (int i = 1; i <= time; i++) {
+        for (int i = 0; i < game3_img_num.length; i++) {
+            Log.d("이건 태그야~", game3_img_num[i].getTag().toString());
+        }
+
+        for (int i = 0; i < game3_img_num_array.size(); i++) {
+            Log.d("이건 태그2야~", game3_img_num_array.get(i).getTag().toString());
+        }
+
+
+        for (int i = 1; i <= turn; i++) {
             equal = String.valueOf(i);
+            Log.d("equal", equal);
             for (int j = 0; j < game3_img_num_array.size(); j++) {
                 if (game3_img_num_array.get(j).getTag().toString().equals(equal)) {
-                    game3_img_num_array.get(j).setImageResource(R.drawable.img4_2);
-                    Log.d(i + "tag", game3_img_num_array.get(j).getTag().toString());
-                    final int pos = j;
+                    int pos = j;
+                    game3_img_num_array.get(pos).setImageResource(R.drawable.img4_2);
+                    Log.d("tag", game3_img_num_array.get(pos).getTag().toString());
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                                game3_img_num_array.get(pos).setImageResource(R.drawable.big_logo);
+                            game3_img_num_array.get(pos).setImageResource(R.drawable.big_logo);
                         }
-                    }, 1000);
-                    break;
+                    }, 2000);
                 }
             }
         }
+
+//        for (int i = 1; i <= turn; i++) {
+//            equal = String.valueOf(i);
+//            Log.d("equal", equal);
+//
+//            if (game3_img_num_array.get(i).getTag().toString().equals(equal)) {
+//                int pos = i;
+//                game3_img_num_array.get(pos).setImageResource(R.drawable.img4_2);
+//                Log.d("tag", game3_img_num_array.get(pos).getTag().toString());
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        game3_img_num_array.get(pos).setImageResource(R.drawable.big_logo);
+//                    }
+//                }, 2000);
+//            }
+//        }
+
     }
 
     private void makeTag() {
         Random rd = new Random();
         int[] tag = new int[9];
-//        pos = new int[9];
-//
-//        for (int i = 0; i < game3_img_num.length; i++) {
-//            pos[i] = rd.nextInt(9);
-//            for (int j = 0; j < i; j++) {
-//                if (pos[i] == pos[j]) {
-//                    i--;
-//                    break;
-//                }
-//            }
-//        }
         for (int i = 0; i < tag.length; i++) {
             tag[i] = rd.nextInt(9) + 1;
             for (int j = 0; j < i; j++) {
