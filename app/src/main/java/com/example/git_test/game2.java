@@ -262,6 +262,15 @@ public class game2 extends AppCompatActivity {
                                 check_img();
                             }
                         }, 1000);
+//                        if(Integer.parseInt(tv_game2_score.getText().toString())%40==0){
+//                            activeGame(pos);
+//                            new Handler().postDelayed(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    check_img();
+//                                }
+//                            }, 1000);
+//                        }
                     }
                 });
             }

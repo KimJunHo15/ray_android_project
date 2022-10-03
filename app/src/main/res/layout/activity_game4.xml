@@ -8,32 +8,102 @@
     tools:context=".game4">
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/img_game4_6"
+        android:layout_width="290dp"
+        android:layout_height="249dp"
+        android:layout_marginStart="56dp"
+        app:layout_constraintStart_toEndOf="@+id/img_game4_5"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_5"
+        app:srcCompat="@drawable/big_logo" />
+
+    <ImageView
+        android:id="@+id/img_correct_6"
+        android:layout_width="206dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_game4_6"
+        app:layout_constraintEnd_toEndOf="@+id/img_game4_6"
+        app:layout_constraintStart_toStartOf="@+id/img_game4_6"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_6"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <ImageView
+        android:id="@+id/img_game4_5"
+        android:layout_width="290dp"
+        android:layout_height="249dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="@+id/img_game4_3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/img_game4_3"
+        app:layout_constraintTop_toBottomOf="@+id/img_game4_3"
+        app:srcCompat="@drawable/big_logo" />
+
+    <ImageView
+        android:id="@+id/img_correct_5"
+        android:layout_width="206dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_game4_5"
+        app:layout_constraintEnd_toEndOf="@+id/img_game4_5"
+        app:layout_constraintStart_toStartOf="@+id/img_game4_5"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_5"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <ImageView
+        android:id="@+id/img_game4_3"
         android:layout_width="290dp"
         android:layout_height="249dp"
         android:layout_marginTop="76dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="@+id/img_game4_1"
+        app:layout_constraintStart_toStartOf="@+id/img_game4_1"
+        app:layout_constraintTop_toBottomOf="@+id/img_game4_1"
         app:srcCompat="@drawable/big_logo" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/img_correct_3"
+        android:layout_width="206dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_game4_3"
+        app:layout_constraintEnd_toEndOf="@+id/img_game4_3"
+        app:layout_constraintStart_toStartOf="@+id/img_game4_3"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_3"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <ImageView
+        android:id="@+id/img_game4_4"
         android:layout_width="290dp"
         android:layout_height="249dp"
         android:layout_marginStart="56dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView9"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/img_game4_3"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_3"
         app:srcCompat="@drawable/big_logo" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/img_correct_4"
+        android:layout_width="206dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_game4_4"
+        app:layout_constraintEnd_toEndOf="@+id/img_game4_4"
+        app:layout_constraintStart_toStartOf="@+id/img_game4_4"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_4"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <ImageView
+        android:id="@+id/img_game4_2"
         android:layout_width="290dp"
         android:layout_height="249dp"
         android:layout_marginStart="56dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/img_game4_1"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_1"
         app:srcCompat="@drawable/big_logo" />
+
+    <ImageView
+        android:id="@+id/img_correct_2"
+        android:layout_width="206dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_game4_2"
+        app:layout_constraintEnd_toEndOf="@+id/img_game4_2"
+        app:layout_constraintStart_toStartOf="@+id/img_game4_2"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_2"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
@@ -53,13 +123,47 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/img_game4_1"
         android:layout_width="290dp"
         android:layout_height="249dp"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="196dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline11"
         app:srcCompat="@drawable/big_logo" />
+
+    <ImageView
+        android:id="@+id/img_correct_1"
+        android:layout_width="206dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_game4_1"
+        app:layout_constraintEnd_toEndOf="@+id/img_game4_1"
+        app:layout_constraintStart_toStartOf="@+id/img_game4_1"
+        app:layout_constraintTop_toTopOf="@+id/img_game4_1"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/tv_game4_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="52dp"
+        android:text="TextView"
+        android:textSize="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_game4_indicate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.701" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
