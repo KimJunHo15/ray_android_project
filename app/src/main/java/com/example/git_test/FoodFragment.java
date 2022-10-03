@@ -52,7 +52,7 @@ public class FoodFragment extends Fragment {
         tv_food_c = view.findViewById(R.id.tv_food_c);
         img_food = view.findViewById(R.id.img_food);
 
-        String url = "http://10.0.2.2:8000/mobile/showmember";
+        String url = "http://10.0.2.2:8000/info/food";
 
         init();
 

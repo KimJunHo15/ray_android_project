@@ -58,7 +58,7 @@ public class ColumnFragment extends Fragment {
         tv_column_t = view.findViewById(R.id.tv_column_t);
         img_column = view.findViewById(R.id.img_column);
 
-        String url = "http://10.0.2.2:8000/mobile/showmember";
+        String url = "http://10.0.2.2:8000/info/column";
 
         // init();
 
