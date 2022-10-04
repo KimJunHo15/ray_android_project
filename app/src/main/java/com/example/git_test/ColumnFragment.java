@@ -78,8 +78,8 @@ public class ColumnFragment extends Fragment {
                         try{
                             JSONObject json = new JSONObject(response);
 
-                            String column_t = json.getString("column_t");
-                            String column_c = json.getString("column_c");
+                            String column_t = json.getString("column_title");
+                            String column_c = json.getString("column_context");
                             String column_img = json.getString("column_img");
                             getData(column_t,column_c,column_img);
 

@@ -67,7 +67,7 @@ public class FoodFragment extends Fragment {
                             JSONObject json = new JSONObject(response);
 
                             String food_t = json.getString("food_t");
-                            String food_c = json.getString("food_c");
+                            String food_c = json.getString("food_info");
                             String food_img = json.getString("food_img");
                             getData_food(food_t,food_c,food_img);
                             
