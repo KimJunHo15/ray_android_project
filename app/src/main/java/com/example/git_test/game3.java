@@ -1,18 +1,31 @@
 package com.example.git_test;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class game3 extends AppCompatActivity {
@@ -24,6 +37,12 @@ public class game3 extends AppCompatActivity {
     int turn;
     int cnt;
     String equal;
+    boolean turning;
+
+    String mem_id = "";
+    RequestQueue requestQueue, requestQueue_img;
+    StringRequest request;
+
 
     ArrayList<ImageView> game3_img_num_array = new ArrayList<>();
 
@@ -34,8 +53,57 @@ public class game3 extends AppCompatActivity {
 
         btn_return_game3 = findViewById(R.id.btn_return_game3);
 
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        mem_id = auto.getString("mem_id", mem_id);
+
         game3_img_num = new ImageView[9];
         turn = rd.nextInt(7) + 2;
+
+        String url = "http://10.0.2.2:8000/mobile/showmember";
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue_img = Volley.newRequestQueue(getApplicationContext());
+
+//        request = new StringRequest(
+//                Request.Method.POST,
+//                url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//
+//                        try {
+//                            JSONObject json = new JSONObject(response);
+//
+//                            String mem_birth = json.getString("mem_birth");
+//                            String mem_gender = json.getString("mem_gender");
+//                            String mem_name = json.getString("mem_name");
+//
+//
+//                        } catch (Exception e) {
+//                            Toast.makeText(MyActivity.this, "에러발생", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(MyActivity.this, error + "", Toast.LENGTH_SHORT).show();
+//                        Log.d("error_info",error.toString());
+//                    }
+//                }
+//
+//        ) {
+//            @Nullable
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//
+//                Map<String, String> params = new HashMap<>();
+//
+//                params.put("mem_id", data);
+//                return params;
+//            }
+//        };
+//        requestQueue.add(request);
 
 
         for (int i = 0; i < game3_img_num.length; i++) {
@@ -64,22 +132,28 @@ public class game3 extends AppCompatActivity {
             Log.d("equal", equal);
             for (int j = 0; j < game3_img_num_array.size(); j++) {
                 if (game3_img_num_array.get(j).getTag().toString().equals(equal)) {
-                    int pos = j;
-                    game3_img_num_array.get(pos).setImageResource(R.drawable.img4_2);
-                    Log.d("tag", game3_img_num_array.get(pos).getTag().toString());
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            game3_img_num_array.get(pos).setImageResource(R.drawable.big_logo);
-                        }
-                    }, 2000);
+                    turn_card(j);
+                    return_card(j);
                 }
             }
         }
-
     }
 
-    private void makeTag() {
+    private void turn_card(int pos) {
+        game3_img_num_array.get(pos).setImageResource(R.drawable.img4_2);
+        Log.d("tag", game3_img_num_array.get(pos).getTag().toString());
+    }
+
+    private void return_card(int pos) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                game3_img_num_array.get(pos).setImageResource(R.drawable.big_logo);
+            }
+        }, 1000);
+    }
+
+    public void makeTag() {
         Random rd = new Random();
         int[] tag = new int[9];
         for (int i = 0; i < tag.length; i++) {
@@ -122,4 +196,11 @@ public class game3 extends AppCompatActivity {
         }
     }
 
+    class turnThread extends Thread{
+        @Override
+        public void run() {
+            while(turning);
+
+        }
+    }
 }
