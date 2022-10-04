@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.git_test.Model.RecyclerAdaper_column;
@@ -28,6 +30,7 @@ import com.example.git_test.Model.columnData;
 import com.example.git_test.Model.columnVO;
 import com.example.git_test.Model.trainingData;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -58,48 +61,41 @@ public class ColumnFragment extends Fragment {
         tv_column_c = view.findViewById(R.id.tv_column_c);
         tv_column_t = view.findViewById(R.id.tv_column_t);
         img_column = view.findViewById(R.id.img_column);
+        init();
 
         String url = "http://10.0.2.2:8000/info/column";
 
         requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
 
-         init();
-
-//        data.add(new columnVO("테스트","테스트",R.drawable.big_logo));
-//        data.add(new columnVO("테스트1","테스트1",R.drawable.img1));
-//        data.add(new columnVO("테스트2","테스트2",R.drawable.img2));
-//        data.add(new columnVO("테스트3","테스트3",R.drawable.img3));
-//        data.add(new columnVO("테스트4","테스트4",R.drawable.img4));
-
-        request = new StringRequest(
-                Request.Method.POST,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try{
-                            JSONObject json = new JSONObject(response);
-
-                            String column_t = json.getString("column_title");
-                            String column_c = json.getString("column_context");
-                            String column_img = json.getString("column_img");
-                            getData(column_t,column_c,column_img);
-
-                        }catch (Exception e){
-                            Toast.makeText(getContext().getApplicationContext(), "오류", Toast.LENGTH_SHORT).show();
-                        }
-
+        JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, null, new Response.Listener<org.json.JSONArray>() {
+            @Override
+            public void onResponse(org.json.JSONArray response) {
+                for(int i =0; i<response.length();i++){
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext().getApplicationContext(), error+"", Toast.LENGTH_SHORT).show();
+                    try {
+                        String column_title = jsonObject.getString("column_title");
+                        String column_content = jsonObject.getString("column_content");
+                        String column_img = jsonObject.getString("column_img");
+                        column_img = "http://10.0.2.2:8000"+column_img;
+                        getData(column_title, column_content, column_img);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
-        );
-        requestQueue.add(request);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error_response",error+"");
+                Toast.makeText(getContext().getApplicationContext(), error+"", Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(JsonArrayRequest);
         return view;
     }
     private void init(){
@@ -120,7 +116,7 @@ public class ColumnFragment extends Fragment {
             data.setColumn_c(listcolumn_c.get(i));
             data.setColumn_url(listcolumn_img.get(i));
 
-            adapter_column.column_additem(columnData);
+            adapter_column.column_additem(data);
         }
         adapter_column.notifyDataSetChanged();
     }
