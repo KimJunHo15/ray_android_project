@@ -17,18 +17,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -37,7 +42,7 @@ public class game1 extends AppCompatActivity {
 
 
     TextView tv_game1_best_score, tv_game1_show_best, tv_game1_now_show, tv_game1_now_score, tv_game1_info;
-    Button btn_game1_next,btn_game1_return;
+    Button btn_game1_next, btn_game1_return;
     Button[] btn_game1_num;
     ImageView img_game1_info;
 
@@ -72,44 +77,6 @@ public class game1 extends AppCompatActivity {
         img_game1_info = findViewById(R.id.img_game1_info);
         pro_game1 = findViewById(R.id.pro_game1);
 
-        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
-        mem_id = auto.getString("mem_id", mem_id);
-        String data = mem_id;
-
-        String url = "";
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                JSONObject json = null;
-                try {
-                    json = new JSONObject(response);
-                    String best_score = json.getString("mem_birth");
-                    if(best_score==null){
-                        tv_game1_best_score.setText("0");
-                    }else{
-                        tv_game1_best_score.setText(String.valueOf(best_score));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("error",error+"");
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("mem_id", data);
-                return params;
-            }
-        };
-
 
         btn_game1_num = new Button[9];
 
@@ -120,8 +87,6 @@ public class game1 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
 
         for (int i = 0; i < btn_game1_num.length; i++) {
@@ -149,8 +114,10 @@ public class game1 extends AppCompatActivity {
                     btn_game1_next.setText("게임시작");
                     next_cnt += 1;
                 } else if (next_cnt == 3) {
+                    getBestScore();
                     game1_info_hide();
                     game1_show();
+
                     pro_game1.setProgress(180);
                     isPlaying = true;
                     TimerThread timerThread = new TimerThread();
@@ -164,7 +131,7 @@ public class game1 extends AppCompatActivity {
                         btn_game1_num[i].setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (lotto[pos] == answer && isPlaying==true) {
+                                if (lotto[pos] == answer && isPlaying == true) {
                                     btn_game1_num[pos].setVisibility(View.INVISIBLE);
                                     answer++;
                                     cnt++;
@@ -178,9 +145,104 @@ public class game1 extends AppCompatActivity {
                 }
             }
         });
+        if (isPlaying == false) {
+            setBestScore();
+            for (int i = 0; i < btn_game1_num.length; i++) {
+                btn_game1_num[i].setClickable(false);
+            }
+        }
     }
 
     // 버튼 보여주기 & 숨기기
+    private void getBestScore() {
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        mem_id = auto.getString("mem_id", mem_id);
+        String data = mem_id;
+
+        String url = "http://10.0.2.2:8000/mobile/gamescore";
+
+        request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(response);
+                    String best_score = json.getString("max1");
+                    Log.d("string_best", best_score);
+
+                    if (best_score.equals("null")) {
+                        tv_game1_best_score.setText("0");
+                    } else {
+                        tv_game1_best_score.setText(best_score);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error + "");
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("mem_id", data);
+                return params;
+            }
+        };
+        requestQueue.add(request);
+    }
+
+    private void setBestScore() {
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        mem_id = auto.getString("mem_id", mem_id);
+        String data = mem_id;
+
+        String url = "http://10.0.2.2:8000/mobile/gamesave";
+
+        request = new StringRequest(
+                Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+//                            JSONObject json = new JSONObject(response);
+                        } catch (Exception e) {
+                            Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(game1.this, error + "", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        ) {
+
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+
+                params.put("mem_id", data);
+                params.put("game_score1", tv_game1_best_score.toString());
+                return params;
+            }
+        };
+        requestQueue.add(request);
+    }
+
     private void game1_info_hide() {
         img_game1_info.setVisibility(View.INVISIBLE);
         tv_game1_info.setVisibility(View.INVISIBLE);
@@ -232,29 +294,29 @@ public class game1 extends AppCompatActivity {
 
 
     // 타이머 핸들러
-    Handler timeHandler = new Handler(){
+    Handler timeHandler = new Handler() {
         public void handleMessage(@NonNull Message msg) {
             int time = msg.arg1;
             pro = msg.arg2;
-            if(time>=0){
-                int time_m = time/60;
-                int time_s = time%60;
+            if (time >= 0) {
+                int time_m = time / 60;
+                int time_s = time % 60;
 //                tv_game4_timer.setText("남은시간"+ time_m+" : "+time_s);
-                pro_game1.setProgress(180-pro);
-            }
-            else{
+                pro_game1.setProgress(180 - pro);
+            } else {
 //                tv_game4_timer.setText("게임종료");
-                isPlaying=false;
+                isPlaying = false;
             }
         }
     };
 
-    class TimerThread extends  Thread{
+    class TimerThread extends Thread {
         int time = 180;
         int timer = 0;
+
         @Override
         public void run() {
-            while (isPlaying){
+            while (isPlaying) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -266,7 +328,7 @@ public class game1 extends AppCompatActivity {
                 message.arg1 = time;
                 message.arg2 = timer;
                 time--;
-                timer+=1;
+                timer += 1;
                 timeHandler.sendMessage(message);
             }
         }

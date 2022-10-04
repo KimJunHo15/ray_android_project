@@ -23,10 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
@@ -40,6 +43,7 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -139,8 +143,21 @@ public class MyActivity extends AppCompatActivity {
                         Log.d("error_info",error.toString());
                     }
                 }
-
         ) {
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                try {
+                    String utf8String = new String(response.data, "UTF-8");
+                    return Response.success(utf8String, HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException e) {
+                    // log error
+                    return Response.error(new ParseError(e));
+                } catch (Exception e) {
+                    // log error
+                    return Response.error(new ParseError(e));
+                }
+            }
+
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
