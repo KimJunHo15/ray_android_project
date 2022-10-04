@@ -17,8 +17,8 @@
 
     <TextView
         android:id="@+id/tv_training_c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="673dp"
+        android:layout_height="670dp"
         android:layout_marginTop="104dp"
         android:text="tv_training_c"
         android:textSize="28dp"
@@ -31,11 +31,10 @@
         android:id="@+id/tv_training_t"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="516dp"
         android:text="tv_training_t"
         android:textSize="48dp"
         app:layout_constraintEnd_toEndOf="@+id/img_training"
         app:layout_constraintStart_toStartOf="@+id/img_training"
-        app:layout_constraintTop_toTopOf="@+id/img_training" />
+        app:layout_constraintTop_toBottomOf="@+id/img_training" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
