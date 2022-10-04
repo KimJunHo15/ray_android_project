@@ -20,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.git_test.Model.RecyclerAdaper_column;
 import com.example.git_test.Model.RecyclerAdaper_training;
 import com.example.git_test.Model.columnAdapter;
@@ -60,7 +61,9 @@ public class ColumnFragment extends Fragment {
 
         String url = "http://10.0.2.2:8000/info/column";
 
-        // init();
+        requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
+
+         init();
 
 //        data.add(new columnVO("테스트","테스트",R.drawable.big_logo));
 //        data.add(new columnVO("테스트1","테스트1",R.drawable.img1));
@@ -97,9 +100,6 @@ public class ColumnFragment extends Fragment {
                 }
         );
         requestQueue.add(request);
-//        columnAdapter adapter = new columnAdapter(getActivity().getApplicationContext(), R.layout.column_list,data);
-//        column_rv.setAdapter(adapter);
-
         return view;
     }
     private void init(){
