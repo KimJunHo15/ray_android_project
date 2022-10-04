@@ -60,7 +60,6 @@ public class RecyclerAdaper extends RecyclerView.Adapter<RecyclerAdaper.ItemView
             date.setText(data.getDate());
             Log.d("data.getImgurl()",data.getImgurl());
             Glide.with(itemView.getContext()).load(data.getImgurl()).into(imgurl);
-            //imgurl.setImageURI(data.getImgurl());
         }
     }
 }

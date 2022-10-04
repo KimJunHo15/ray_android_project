@@ -1,6 +1,7 @@
 package com.example.git_test;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -15,6 +16,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +29,11 @@ import java.util.Random;
 
 public class game2 extends AppCompatActivity {
 
-    TextView tv_count_5, tv_game2_score;
-    Button btn_test, btn_test_return;
+    TextView tv_count_5, tv_game2_score,tv_game2_best;
+    Button btn_test_return;
     ImageView[] game2_img_num;
     ConstraintLayout game2_cl;
+    ProgressBar pro_game2;
 
     ArrayList<String> check_right;
     ArrayList<ImageView> check_right_id;
@@ -43,6 +46,8 @@ public class game2 extends AppCompatActivity {
     boolean check_click = false;
     int score;
     boolean roof;
+    boolean isPlaying;
+    int pro;
 
 
     @Override
@@ -52,9 +57,10 @@ public class game2 extends AppCompatActivity {
 
         tv_count_5 = findViewById(R.id.tv_count_5);
         tv_game2_score = findViewById(R.id.tv_game2_score);
-        btn_test = findViewById(R.id.btn_test);
         game2_cl = findViewById(R.id.game2_cl);
         btn_test_return = findViewById(R.id.btn_test_return);
+        pro_game2 = findViewById(R.id.pro_game2);
+        tv_game2_best = findViewById(R.id.tv_game2_best);
         tv_game2_score.setText("0");
 
         check_right = new ArrayList<>();
@@ -66,23 +72,33 @@ public class game2 extends AppCompatActivity {
         hideSystemUI();
 
         roof = true;
+        isPlaying = true;
+        pro_game2.setIndeterminate(false);
+        pro_game2.setProgress(180);
+
+        TimerThread timerThread = new TimerThread();
+        timerThread.start();
 
         game2_img_num = new ImageView[16];
 
-        timeThread Thread = new timeThread();
 
         for (int i = 0; i < game2_img_num.length; i++) {
             int img_id = getResources().getIdentifier("game2_img_" + (i + 1), "id", getPackageName());
             game2_img_num[i] = findViewById(img_id);
         }
 
-            game2_set();
+        game2_set();
+
+        if(isPlaying==false){
+            int best = Integer.parseInt(tv_game2_score.getText().toString());
+            tv_game2_best.setText(best);
+        }
 
 
         btn_test_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(game2.this,MainActivity.class);
+                Intent intent = new Intent(game2.this,GameActivity.class);
                 startActivity(intent);
             }
         });
@@ -297,31 +313,42 @@ public class game2 extends AppCompatActivity {
             }
         }
     }
-
-    @SuppressLint("HandlerLeak")
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            tv_count_5.setText(msg.arg1 + "");
-            countDown = msg.arg1;
-            Log.d("i",msg.arg1+"");
-            Log.d("count",countDown+"");
+    Handler timeHandler = new Handler(){
+        public void handleMessage(@NonNull Message msg) {
+            int time = msg.arg1;
+            pro = msg.arg2;
+            if(time>=0){
+                int time_m = time/60;
+                int time_s = time%60;
+//                tv_game4_timer.setText("남은시간"+ time_m+" : "+time_s);
+                pro_game2.setProgress(180-pro);
+            }
+            else{
+//                tv_game4_timer.setText("게임종료");
+                isPlaying=false;
+            }
         }
     };
 
-    class timeThread extends Thread {
+    class TimerThread extends  Thread{
+        int time = 180;
+        int timer = 0;
         @Override
         public void run() {
-            for (int i = 5; i >= 0; i--) {
+            while (isPlaying){
                 try {
-                    Thread.sleep(1000); // (1000ms --> 1초)
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.v("타이머", String.valueOf(i));
+
                 Message message = new Message();
-                message.arg1 = i;
-                handler.sendMessage(message);
+
+                message.arg1 = time;
+                message.arg2 = timer;
+                time--;
+                timer+=1;
+                timeHandler.sendMessage(message);
             }
         }
     }

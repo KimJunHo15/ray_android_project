@@ -165,8 +165,8 @@
         android:id="@+id/btn_test_return"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="btn_test_return"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -175,30 +175,67 @@
         android:id="@+id/tv_count_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
+        android:layout_marginBottom="40dp"
         android:text="5"
         android:textSize="60dp"
-        app:layout_constraintStart_toEndOf="@+id/btn_test"
-        app:layout_constraintTop_toTopOf="@+id/btn_test" />
-
-    <Button
-        android:id="@+id/btn_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="952dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_game2_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:text="0"
         android:textSize="48dp"
+        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/pro_game2"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:max="180"
+        android:progressDrawable="@drawable/progressbar_progressbar1"
+        android:scrollbarSize="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="최고점수"
+        android:textSize="28dp"
+        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="108dp"
+        android:text="현재점수"
+        android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_game2_best"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="0"
+        android:textSize="48dp"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/tv_game2_score" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -299,7 +299,5 @@ public class MyActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-
-
 }
 

@@ -55,8 +55,17 @@ public class game4 extends AppCompatActivity {
         tv_game4_count.setText("0");
         int cnt =0;
 
+        btn_game4_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(game4.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
         isPlaying = true;
         pro_game4.setIndeterminate(false);
+        pro_game4.setProgress(180);
 
 
         TimerThread timerThread = new TimerThread();
@@ -242,12 +251,11 @@ public class game4 extends AppCompatActivity {
             if(time>=0){
                 int time_m = time/60;
                 int time_s = time%60;
-                tv_game4_timer.setText("남은시간"+ time_m+" : "+time_s);
-//                if(time>=120){
-//                    tv_game4_timer.setText("남은시간 3:"+(time-120));
-//                }else if(time<=120&&time>=60){
-//                    tv_game4_timer.setText("남은시간 2:"+(time-120));
-//                }else if(time<=60&&time>=)
+                if(pro==0){
+                    tv_game4_timer.setText("3:00");
+                }else{
+                    tv_game4_timer.setText(time_m+" : "+time_s);
+                }
                 pro_game4.setProgress(180-pro);
             }
             else{

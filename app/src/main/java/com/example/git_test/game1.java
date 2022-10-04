@@ -3,6 +3,7 @@ package com.example.git_test;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -20,7 +21,7 @@ public class game1 extends AppCompatActivity {
 
 
     TextView tv_game1_best_score, tv_game1_show_best, tv_game1_now_show, tv_game1_now_score, tv_game1_info;
-    Button btn_game1_next;
+    Button btn_game1_next,btn_game1_return;
     Button[] btn_game1_num;
     ImageView img_game1_info;
 
@@ -29,17 +30,11 @@ public class game1 extends AppCompatActivity {
     //    int op;
     int cnt;
     int answer;
+    boolean isPlaying;
+    int pro;
 
     // 타이머
-    ProgressBar pre_game1;
-    private long timeCount = 1 * 60000;
-
-    private enum TimerStatus {
-        STARTED,
-        STOPPED
-    }
-
-    private TimerStatus timerStatus = TimerStatus.STOPPED;
+    ProgressBar pro_game1;
 
     int next_cnt = 0;
 
@@ -48,15 +43,24 @@ public class game1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game1);
         btn_game1_next = findViewById(R.id.btn_game1_next);
+        btn_game1_return = findViewById(R.id.btn_game1_return);
         tv_game1_info = findViewById(R.id.tv_game1_info);
         tv_game1_best_score = findViewById(R.id.tv_game1_best_score);
         tv_game1_show_best = findViewById(R.id.tv_game1_show_best);
         tv_game1_now_score = findViewById(R.id.tv_game1_now_score);
         tv_game1_now_show = findViewById(R.id.tv_game1_now_show);
         img_game1_info = findViewById(R.id.img_game1_info);
-        pre_game1 = findViewById(R.id.pre_game1);
+        pro_game1 = findViewById(R.id.pro_game1);
 
         btn_game1_num = new Button[9];
+
+        btn_game1_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(game1.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
 
         for (int i = 0; i < btn_game1_num.length; i++) {
             int btn_id = getResources().getIdentifier("btn_game_num" + (i + 1), "id", getPackageName());
@@ -85,7 +89,10 @@ public class game1 extends AppCompatActivity {
                 } else if (next_cnt == 3) {
                     game1_info_hide();
                     game1_show();
-                    start();
+                    pro_game1.setProgress(180);
+                    isPlaying = true;
+                    TimerThread timerThread = new TimerThread();
+                    timerThread.start();
                     cnt = 0;
                     answer = 1;
                     makeRandom(cnt);
@@ -95,7 +102,7 @@ public class game1 extends AppCompatActivity {
                         btn_game1_num[i].setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                if (lotto[pos] == answer) {
+                                if (lotto[pos] == answer && isPlaying==true) {
                                     btn_game1_num[pos].setVisibility(View.INVISIBLE);
                                     answer++;
                                     cnt++;
@@ -116,6 +123,7 @@ public class game1 extends AppCompatActivity {
         img_game1_info.setVisibility(View.INVISIBLE);
         tv_game1_info.setVisibility(View.INVISIBLE);
         btn_game1_next.setVisibility(View.INVISIBLE);
+
     }
 
     private void game1_info_show() {
@@ -125,7 +133,8 @@ public class game1 extends AppCompatActivity {
     }
 
     private void game1_show() {
-        pre_game1.setVisibility(View.VISIBLE);
+        btn_game1_return.setVisibility(View.VISIBLE);
+        pro_game1.setVisibility(View.VISIBLE);
         tv_game1_now_score.setVisibility(View.VISIBLE);
         tv_game1_now_show.setVisibility(View.VISIBLE);
         tv_game1_show_best.setVisibility(View.VISIBLE);
@@ -133,7 +142,7 @@ public class game1 extends AppCompatActivity {
     }
 
     private void game1_hide() {
-        pre_game1.setVisibility(View.INVISIBLE);
+        pro_game1.setVisibility(View.INVISIBLE);
         tv_game1_now_score.setVisibility(View.INVISIBLE);
         tv_game1_now_show.setVisibility(View.INVISIBLE);
         tv_game1_show_best.setVisibility(View.INVISIBLE);
@@ -159,49 +168,45 @@ public class game1 extends AppCompatActivity {
         }
     }
 
-    //    private void startCountDownTimer(){
-//         countDownTimer = new CountDownTimer(timeCount,1000){
-//            @Override
-//            public void onTick(long l) {
-//            }
-//            @Override
-//            public void onFinish() {
-//            }
-//        }
-//    }
-    private void start() {
-        if (timerStatus == TimerStatus.STOPPED) {
-            timerStatus = TimerStatus.STARTED;
-        }
-    }
 
     // 타이머 핸들러
-    Handler timerHandler = new Handler() {
-        @Override
+    Handler timeHandler = new Handler(){
         public void handleMessage(@NonNull Message msg) {
             int time = msg.arg1;
-
+            pro = msg.arg2;
+            if(time>=0){
+                int time_m = time/60;
+                int time_s = time%60;
+//                tv_game4_timer.setText("남은시간"+ time_m+" : "+time_s);
+                pro_game1.setProgress(180-pro);
+            }
+            else{
+//                tv_game4_timer.setText("게임종료");
+                isPlaying=false;
+            }
         }
     };
 
-    // 타이머 쓰레드
-    class timerThread extends Thread {
+    class TimerThread extends  Thread{
+        int time = 180;
+        int timer = 0;
         @Override
         public void run() {
-            for (int i = 10; i >= 0; i--) {
+            while (isPlaying){
                 try {
                     Thread.sleep(1000);
-
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Message message = new Message();
-                message.arg1 = i;
-                timerHandler.sendMessage(message);
 
+                Message message = new Message();
+
+                message.arg1 = time;
+                message.arg2 = timer;
+                time--;
+                timer+=1;
+                timeHandler.sendMessage(message);
             }
         }
-
-
     }
 }
