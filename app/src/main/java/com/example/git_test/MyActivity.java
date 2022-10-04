@@ -120,6 +120,7 @@ public class MyActivity extends AppCompatActivity {
                             String mem_birth = json.getString("mem_birth");
                             String mem_gender = json.getString("mem_gender");
                             String mem_name = json.getString("mem_name");
+                            Log.d("mem_name",mem_name);
 
                             tv_name.setText(mem_name);
                             tv_birth.setText(mem_birth);

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.example.git_test.Model.foodData;
 import com.example.git_test.Model.foodVO;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -61,47 +63,35 @@ public class FoodFragment extends Fragment {
 
         init();
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.POST, url, null, new Response.Listener<org.json.JSONArray>() {
             @Override
-            public void onResponse(JSONArray response) {
-
+            public void onResponse(org.json.JSONArray response) {
+                for(int i =0; i<response.length();i++){
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        String food_title = jsonObject.getString("food_title");
+                        String food_info = jsonObject.getString("food_info");
+                        String food_img = jsonObject.getString("food_img");
+                        food_img = "http://10.0.2.2:8000"+food_img;
+                        getData_food(food_title, food_info, food_img);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("error_response",error+"");
+                Toast.makeText(getContext().getApplicationContext(), error+"", Toast.LENGTH_SHORT).show();
             }
         });
-
-        request = new StringRequest(
-                Request.Method.POST,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        try {
-                            JSONObject json = new JSONObject(response);
-
-                            String food_t = json.getString("food_t");
-                            String food_c = json.getString("food_info");
-                            String food_img = json.getString("food_img");
-                            getData_food(food_t,food_c,food_img);
-                            
-                        }catch (Exception e){
-                            Toast.makeText(getContext().getApplicationContext(), "오류", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext().getApplicationContext(), error+"", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-        requestQueue.add(request);
+        requestQueue.add(JsonArrayRequest);
 
         return view;
     }
