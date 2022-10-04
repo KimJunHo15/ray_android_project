@@ -18,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.git_test.Model.Data;
 import com.example.git_test.Model.RecyclerAdaper_food;
 import com.example.git_test.Model.foodData;
@@ -53,6 +54,8 @@ public class FoodFragment extends Fragment {
         img_food = view.findViewById(R.id.img_food);
 
         String url = "http://10.0.2.2:8000/info/food";
+
+        requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
 
         init();
 

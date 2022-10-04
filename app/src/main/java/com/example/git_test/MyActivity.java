@@ -97,6 +97,7 @@ public class MyActivity extends AppCompatActivity {
         SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
         mem_id = auto.getString("mem_id", mem_id);
 
+
         String data = mem_id;
 
         // 데이터 송수신용 서버
