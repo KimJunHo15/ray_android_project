@@ -1,9 +1,12 @@
 package com.example.git_test;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -15,6 +18,19 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class game1 extends AppCompatActivity {
@@ -35,8 +51,12 @@ public class game1 extends AppCompatActivity {
 
     // 타이머
     ProgressBar pro_game1;
-
     int next_cnt = 0;
+
+    // 볼리용
+    String mem_id;
+    RequestQueue requestQueue, requestQueue_img;
+    StringRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +72,45 @@ public class game1 extends AppCompatActivity {
         img_game1_info = findViewById(R.id.img_game1_info);
         pro_game1 = findViewById(R.id.pro_game1);
 
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        mem_id = auto.getString("mem_id", mem_id);
+        String data = mem_id;
+
+        String url = "";
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(response);
+                    String best_score = json.getString("mem_birth");
+                    if(best_score==null){
+                        tv_game1_best_score.setText("0");
+                    }else{
+                        tv_game1_best_score.setText(String.valueOf(best_score));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error",error+"");
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("mem_id", data);
+                return params;
+            }
+        };
+
+
         btn_game1_num = new Button[9];
 
         btn_game1_return.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +120,9 @@ public class game1 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
 
         for (int i = 0; i < btn_game1_num.length; i++) {
             int btn_id = getResources().getIdentifier("btn_game_num" + (i + 1), "id", getPackageName());

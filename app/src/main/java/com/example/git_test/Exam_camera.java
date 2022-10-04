@@ -57,10 +57,6 @@ public class Exam_camera extends AppCompatActivity {
     private File photoFile;
     String id = "";
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +134,7 @@ public class Exam_camera extends AppCompatActivity {
         if(i.resolveActivity(Exam_camera.this.getPackageManager())!=null){
             // 사진의 파일명을 만들기
             String fileName = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
             photoFile = getPhotoFile(fileName);
 
             Uri fileProvider = FileProvider.getUriForFile(Exam_camera.this,
@@ -200,7 +197,6 @@ public class Exam_camera extends AppCompatActivity {
             img_camera_pre.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
             // 네트워크로 데이터 보낸다.
-
 
         }else if(requestCode == 300 && resultCode == RESULT_OK && data != null &&
                 data.getData() != null){

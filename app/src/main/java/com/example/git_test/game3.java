@@ -91,7 +91,6 @@ public class game3 extends AppCompatActivity {
 
         game3_img_num = new ImageView[9];
 
-
         String url = "http://10.0.2.2:8000/mobile/showmember";
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
