@@ -2,11 +2,14 @@ package com.example.git_test;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,11 +23,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class game2 extends AppCompatActivity {
@@ -326,6 +339,60 @@ public class game2 extends AppCompatActivity {
             else{
 //                tv_game4_timer.setText("게임종료");
                 isPlaying=false;
+                for(int i =0; i<9;i++){
+                    game2_img_num[i].setClickable(false);
+                }
+//                requestQueue = Volley.newRequestQueue(getApplicationContext());
+//
+//                SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+//                mem_id = auto.getString("mem_id", mem_id);
+//                String data = mem_id;
+//                Log.d("mem_id2", data);
+//                String score = tv_game1_now_score.getText().toString();
+//                Log.d("now__________",tv_game1_now_score+"");
+//                String url = "http://10.0.2.2:8000/mobile/gamesave";
+//
+//                request_score = new StringRequest(
+//                        Request.Method.POST,
+//                        url,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                try {
+//                                    JSONObject jsonObject = new JSONObject();
+//                                    String code = jsonObject.getString("code");
+//                                    if (code.equals(200)) {
+//                                        Toast.makeText(game1.this, "저장완료", Toast.LENGTH_SHORT).show();
+//                                        Log.d("성공이다", "성공");
+//
+//                                    } else {
+//                                        Log.d("error실패다", "실패");
+//                                    }
+//                                } catch (Exception e) {
+//                                    Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+////                        Toast.makeText(game1.this, error + "", Toast.LENGTH_SHORT).show();
+//                                Log.d("error에러입니다", error.toString());
+//                            }
+//                        }
+//                ) {
+//                    @Nullable
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//
+//                        Map<String, String> params = new HashMap<>();
+//
+//                        params.put("mem_id", data);
+//                        params.put("game_score1", score);
+//                        return params;
+//                    }
+//                };
+//                requestQueue.add(request_score);
             }
         }
     };
