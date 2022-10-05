@@ -24,6 +24,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -74,7 +75,8 @@ public class IndexActivity extends AppCompatActivity {
         
 
         String l_url2 = "http://127.0.0.1:8000/m_login";
-        String l_url = "http://10.0.2.2:8000/mobile/login";
+       // String l_url = "http://10.0.2.2:8000/mobile/login";
+        String l_url = "http://172.30.1.81:8000/mobile/login";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         //자동 로그인 기능
@@ -186,14 +188,22 @@ public class IndexActivity extends AppCompatActivity {
                                     return params;
                                 }
                             };
-                            request.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
+                            request.setRetryPolicy(new RetryPolicy() {
+                                @Override
+                                public int getCurrentTimeout() {
+                                    return 50000;
+                                }
 
-                                    20000 ,
+                                @Override
+                                public int getCurrentRetryCount() {
+                                    return 50000;
+                                }
 
-                                    com.android.volley.DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                @Override
+                                public void retry(VolleyError error) throws VolleyError {
 
-                                    com.android.volley.DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
+                                }
+                            });
                             requestQueue.add(request);
                         }
                     });
