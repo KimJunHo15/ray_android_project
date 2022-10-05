@@ -173,6 +173,14 @@ public class JoinActivity extends AppCompatActivity implements AdapterView.OnIte
                         return params;
                     }
                 };
+                request.setRetryPolicy(new com.android.volley.DefaultRetryPolicy(
+
+                        20000 ,
+
+                        com.android.volley.DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+
+                        com.android.volley.DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
                 requestQueue.add(request);
             }
         });
