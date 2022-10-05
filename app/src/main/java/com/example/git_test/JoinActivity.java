@@ -4,16 +4,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -28,10 +32,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JoinActivity extends AppCompatActivity {
+public class JoinActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
 
     Button bt_join;
     EditText ed_name,ed_id, ed_pw,ed_birth,ed_gender;
@@ -40,7 +45,13 @@ public class JoinActivity extends AppCompatActivity {
     RadioGroup radio_join;
     String type;
     ConstraintLayout cl;
+    Spinner spinner_join;
+    String text;
+    String select_item;
     boolean click_cl;
+    boolean check;
+    String data5 =null;
+
 //    SimpleDateFormat joinDate;
 
     @Override
@@ -53,9 +64,14 @@ public class JoinActivity extends AppCompatActivity {
         ed_id = findViewById(R.id.ed_id);
         ed_pw = findViewById(R.id.ed_pw);
         ed_birth = findViewById(R.id.ed_birth);
-        ed_gender = findViewById(R.id.ed_gender);
+//        ed_gender = findViewById(R.id.ed_gender);
         radio_join = findViewById(R.id.radio_join);
+        spinner_join = (Spinner) findViewById(R.id.spinner_join);
         cl = findViewById(R.id.cl);
+
+        ArrayList<String> gender_array= new ArrayList<>();
+        gender_array.add("남성");
+        gender_array.add("여성");
 
         cl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,19 +80,13 @@ public class JoinActivity extends AppCompatActivity {
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         });
-        cl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (click_cl ==true){
-                    showSystemUI();
-                    click_cl = false;
-                }
-                else{
-                    hideSystemUI();
-                    click_cl = true;
-                }
-            }
-        });
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.gender, android.R.layout.simple_spinner_item);
+        spinner_join.setPrompt("성별을 선택해주세요.");
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_join.setSelection(0);
+        spinner_join.setAdapter(adapter);
 
 
         radio_join.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -102,12 +112,18 @@ public class JoinActivity extends AppCompatActivity {
         bt_join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String selectedItemName = spinner_join.getSelectedItem().toString();
+                if(selectedItemName.equals("남성")){
+                    data5 = "M";
+                }else{
+                    data5 = "F";
+                }
 
                 String data1 = ed_id.getText().toString();
                 String data2 = ed_pw.getText().toString();
                 String data3 = ed_name.getText().toString();
                 String data4 = ed_birth.getText().toString();
-                String data5 = ed_gender.getText().toString();
+//                String data5 = ed_gender.getText().toString();
                 String data6 = type;
 
                 request = new StringRequest(
@@ -134,7 +150,7 @@ public class JoinActivity extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "서버 연결 에러.", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getApplicationContext(), "서버 연결 에러.", Toast.LENGTH_SHORT).show();
                                 Log.d("error에러", error.toString());
                             }
                         }
@@ -154,7 +170,6 @@ public class JoinActivity extends AppCompatActivity {
                         params.put("mem_gender", data5);
                         params.put("mem_type", data6);
 
-
                         return params;
                     }
                 };
@@ -170,6 +185,11 @@ public class JoinActivity extends AppCompatActivity {
         if (hasFocus) {
             hideSystemUI();
         }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
     }
 
     private void hideSystemUI() {
@@ -191,4 +211,20 @@ public class JoinActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        String Text = String.valueOf(spinner_join.getSelectedItem());
+        Log.d("item",text);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
 }

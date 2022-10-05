@@ -182,14 +182,16 @@ public class MyActivity extends AppCompatActivity {
                         try {
                             JSONObject json = new JSONObject(response);
 
-                            String imgurl = json.getString("imgurl");
-                            Log.d("imgurl2",imgurl);
-                            String score = json.getString("score");
-                            Log.d("score2",score);
-                            String date = json.getString("date");
-                            Log.d("date",date);
-                            String plus = "http://10.0.2.2:8000/"+ imgurl;
-                            getData(score,date,plus);
+                            if(json!=null){
+                                String imgurl = json.getString("imgurl");
+                                Log.d("imgurl2",imgurl);
+                                String score = json.getString("score");
+                                Log.d("score2",score);
+                                String date = json.getString("date");
+                                Log.d("date",date);
+                                String plus = "http://10.0.2.2:8000/"+ imgurl;
+                                getData(score,date,plus);
+                            }
 
                         } catch (Exception e) {
                             Toast.makeText(MyActivity.this, "에러발생", Toast.LENGTH_SHORT).show();
@@ -199,7 +201,6 @@ public class MyActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MyActivity.this, error + "", Toast.LENGTH_SHORT).show();
                         Log.d("error_img",error.toString());
                     }
                 }

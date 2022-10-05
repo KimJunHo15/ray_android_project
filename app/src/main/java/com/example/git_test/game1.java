@@ -138,20 +138,18 @@ public class game1 extends AppCompatActivity {
                                     tv_game1_now_score.setText(cnt + "");
                                     if (cnt % 9 == 0)
                                         makeRandom(cnt);
+                                    if (isPlaying == false) {
+                                        setBestScore();
+                                        btn_game1_num[pos].setClickable(false);
+                                        }
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        };
                     }
                 }
-            }
-        });
-        if (isPlaying == false) {
-            setBestScore();
-            for (int i = 0; i < btn_game1_num.length; i++) {
-                btn_game1_num[i].setClickable(false);
-            }
-        }
-    }
+            });
+        };
 
     // 버튼 보여주기 & 숨기기
     private void getBestScore() {

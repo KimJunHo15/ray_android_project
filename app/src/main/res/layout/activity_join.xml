@@ -73,30 +73,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_name" />
 
-    <EditText
-        android:id="@+id/ed_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:hint="성별"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textSize="34dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_birth" />
-
     <Button
         android:id="@+id/bt_join"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="68dp"
         android:text="회원가입"
         android:textSize="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_gender" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_join" />
 
     <RadioGroup
         android:id="@+id/radio_join"
@@ -130,5 +116,15 @@
             android:text="일반고객"
             android:textSize="28dp" />
     </RadioGroup>
+
+    <Spinner
+        android:id="@+id/spinner_join"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="@+id/ed_birth"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ed_birth"
+        app:layout_constraintTop_toBottomOf="@+id/ed_birth" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
