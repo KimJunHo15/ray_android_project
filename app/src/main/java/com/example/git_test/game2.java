@@ -143,7 +143,8 @@ public class game2 extends AppCompatActivity {
         mem_id = auto.getString("mem_id", mem_id);
         String data = mem_id;
 
-        String url = "http://10.0.2.2:8000/mobile/gamescore";
+//        String url = "http://10.0.2.2:8000/mobile/gamescore";
+        String url = "http://172.30.1.28:8000/mobile/gamescore";
 
         request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -413,7 +414,8 @@ public class game2 extends AppCompatActivity {
                 Log.d("mem_id2", data);
                 String score = tv_game2_score.getText().toString();
                 Log.d("now__________",tv_game2_score+"");
-                String url = "http://10.0.2.2:8000/mobile/gamesave";
+//                String url = "http://10.0.2.2:8000/mobile/gamesave";
+                String url = "http://172.30.1.28:8000/mobile/gamesave";
 
                 request_score = new StringRequest(
                         Request.Method.POST,

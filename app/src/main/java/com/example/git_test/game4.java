@@ -42,14 +42,17 @@ public class game4 extends AppCompatActivity {
     ConstraintLayout cl_game4;
     ImageView[] img_game4_num;
     ImageView[] img_correct_num;
-    TextView tv_game4_score,tv_game4_indicate,tv_game4_best,tv_game4_timer;
+    TextView tv_game4_score,tv_game4_indicate,tv_game4_best;
     int[] img;
     int[] seq;
-    int[] right_img_id = {R.drawable.right_1,R.drawable.right_2,R.drawable.right_3,R.drawable.right_4,R.drawable.right_5,R.drawable.right_6,R.drawable.right_7,R.drawable.right_8,R.drawable.right_9,R.drawable.right_10};
+    int[] right_img_id = {R.drawable.right_1,R.drawable.right_2,R.drawable.right_3,R.drawable.right_5,R.drawable.right_6,R.drawable.right_7,R.drawable.right_8,R.drawable.right_9,R.drawable.right_10,
+            R.drawable.right_10,R.drawable.right_11,R.drawable.right_12,R.drawable.right_13,R.drawable.right_14,R.drawable.right_15};
     int score;
     int cnt;
     int pro;
-    int[] left_img_id = {R.drawable.left_1,R.drawable.left_2,R.drawable.left_3,R.drawable.left_4,R.drawable.left_5,R.drawable.left_6,R.drawable.left_7,R.drawable.left_8,R.drawable.left_9,R.drawable.left_10};
+    int[] left_img_id = {R.drawable.left_1,R.drawable.left_2,R.drawable.left_3,R.drawable.left_4,R.drawable.left_5,R.drawable.left_6,R.drawable.left_7,R.drawable.left_8,R.drawable.left_9,
+            R.drawable.left_10,R.drawable.left_11,R.drawable.left_12,R.drawable.left_13,R.drawable.left_14,R.drawable.left_15};
+
     boolean isPlaying;
     ProgressBar pro_game4;
 
@@ -67,7 +70,6 @@ public class game4 extends AppCompatActivity {
         tv_game4_score = findViewById(R.id.tv_game4_score);
         tv_game4_indicate = findViewById(R.id.tv_game4_indicate);
         tv_game4_best = findViewById(R.id.tv_game4_best);
-        tv_game4_timer = findViewById(R.id.tv_game4_timer);
         pro_game4= findViewById(R.id.pro_game4);
 
         img_correct_num = new ImageView[6];
@@ -130,7 +132,8 @@ public class game4 extends AppCompatActivity {
         mem_id = auto.getString("mem_id", mem_id);
         String data = mem_id;
 
-        String url = "http://10.0.2.2:8000/mobile/gamescore";
+//        String url = "http://10.0.2.2:8000/mobile/gamescore";
+        String url = "http://172.30.1.28:8000/mobile/gamescore";
 
         request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -201,7 +204,7 @@ public class game4 extends AppCompatActivity {
 
     private void left(){
         int[] seq = new int[6];
-        int[] img = new int[10];
+        int[] img = new int[14];
 
 
         for (int i = 0; i < seq.length; i++) {
@@ -215,7 +218,7 @@ public class game4 extends AppCompatActivity {
         }
 
         for(int i =0; i<img.length; i++){
-            img[i] = rd.nextInt(10);
+            img[i] = rd.nextInt(14);
             for (int j = 0; j < i; j++) {
                 if (img[i] == img[j]) {
                     i--;
@@ -256,7 +259,7 @@ public class game4 extends AppCompatActivity {
 
     private void right(){
         int[] seq = new int[6];
-        int[] img = new int[10];
+        int[] img = new int[14];
 
 
         for (int i = 0; i < seq.length; i++) {
@@ -270,7 +273,7 @@ public class game4 extends AppCompatActivity {
         }
 
         for(int i =0; i<img.length; i++){
-            img[i] = rd.nextInt(10);
+            img[i] = rd.nextInt(14);
             for (int j = 0; j < i; j++) {
                 if (img[i] == img[j]) {
                     i--;
@@ -304,7 +307,6 @@ public class game4 extends AppCompatActivity {
                     if(cnt%5==0){
                         left();
                     }
-
                 }
             });
         }
@@ -329,7 +331,8 @@ public class game4 extends AppCompatActivity {
                 Log.d("mem_id2", data);
                 String score = tv_game4_score.getText().toString();
                 Log.d("now__________", tv_game4_score +"");
-                String url = "http://10.0.2.2:8000/mobile/gamesave";
+//                String url = "http://10.0.2.2:8000/mobile/gamesave";
+                String url = "http://172.30.1.28:8000/mobile/gamesave";
 
                 request_score = new StringRequest(
                         Request.Method.POST,

@@ -186,17 +186,6 @@
         app:layout_constraintStart_toStartOf="@+id/tv_game4_score"
         app:layout_constraintTop_toBottomOf="@+id/tv_game4_score" />
 
-    <TextView
-        android:id="@+id/tv_game4_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="100dp"
-        android:text="3:00"
-        android:textSize="36dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ProgressBar
         android:max="180"
         android:id="@+id/pro_game4"
