@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -33,6 +34,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -62,6 +64,11 @@ public class game2 extends AppCompatActivity {
     boolean isPlaying;
     int pro;
 
+    // 최고 점수 용(볼리)
+    String mem_id;
+    RequestQueue requestQueue, requestQueue_img;
+    StringRequest request, request_score;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +91,15 @@ public class game2 extends AppCompatActivity {
 
         hideSystemUI();
 
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        mem_id = auto.getString("mem_id", mem_id);
+        String data = mem_id;
+        Log.d("mem_id1", data);
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        String url2 = "http://10.0.2.2:8000/mobile/gamesave";
+
         roof = true;
         isPlaying = true;
         pro_game2.setIndeterminate(false);
@@ -93,6 +109,8 @@ public class game2 extends AppCompatActivity {
         timerThread.start();
 
         game2_img_num = new ImageView[16];
+
+        getBestScore();
 
 
         for (int i = 0; i < game2_img_num.length; i++) {
@@ -117,6 +135,51 @@ public class game2 extends AppCompatActivity {
         });
 
     }
+
+    private void getBestScore() {
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        mem_id = auto.getString("mem_id", mem_id);
+        String data = mem_id;
+
+        String url = "http://10.0.2.2:8000/mobile/gamescore";
+
+        request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(response);
+                    String best_score = json.getString("max2");
+
+                    if (best_score.equals("null")) {
+                        tv_game2_best.setText("0");
+                    } else {
+                        tv_game2_best.setText(best_score);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error + "");
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("mem_id", data);
+                return params;
+            }
+        };
+        requestQueue.add(request);
+    }
+
+
 
 
     private void makeTag() {
@@ -330,7 +393,7 @@ public class game2 extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             int time = msg.arg1;
             pro = msg.arg2;
-            if(time>=0){
+            if(pro<=180){
                 int time_m = time/60;
                 int time_s = time%60;
 //                tv_game4_timer.setText("남은시간"+ time_m+" : "+time_s);
@@ -339,60 +402,60 @@ public class game2 extends AppCompatActivity {
             else{
 //                tv_game4_timer.setText("게임종료");
                 isPlaying=false;
-                for(int i =0; i<9;i++){
+                for(int i =0; i<16;i++){
                     game2_img_num[i].setClickable(false);
                 }
-//                requestQueue = Volley.newRequestQueue(getApplicationContext());
-//
-//                SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
-//                mem_id = auto.getString("mem_id", mem_id);
-//                String data = mem_id;
-//                Log.d("mem_id2", data);
-//                String score = tv_game1_now_score.getText().toString();
-//                Log.d("now__________",tv_game1_now_score+"");
-//                String url = "http://10.0.2.2:8000/mobile/gamesave";
-//
-//                request_score = new StringRequest(
-//                        Request.Method.POST,
-//                        url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                try {
-//                                    JSONObject jsonObject = new JSONObject();
-//                                    String code = jsonObject.getString("code");
-//                                    if (code.equals(200)) {
+                requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+                SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+                mem_id = auto.getString("mem_id", mem_id);
+                String data = mem_id;
+                Log.d("mem_id2", data);
+                String score = tv_game2_score.getText().toString();
+                Log.d("now__________",tv_game2_score+"");
+                String url = "http://10.0.2.2:8000/mobile/gamesave";
+
+                request_score = new StringRequest(
+                        Request.Method.POST,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject();
+                                    String code = jsonObject.getString("code");
+                                    if (code.equals(200)) {
 //                                        Toast.makeText(game1.this, "저장완료", Toast.LENGTH_SHORT).show();
-//                                        Log.d("성공이다", "성공");
-//
-//                                    } else {
-//                                        Log.d("error실패다", "실패");
-//                                    }
-//                                } catch (Exception e) {
+                                        Log.d("성공이다", "성공");
+
+                                    } else {
+                                        Log.d("error실패다", "실패");
+                                    }
+                                } catch (Exception e) {
 //                                    Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-////                        Toast.makeText(game1.this, error + "", Toast.LENGTH_SHORT).show();
-//                                Log.d("error에러입니다", error.toString());
-//                            }
-//                        }
-//                ) {
-//                    @Nullable
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//
-//                        Map<String, String> params = new HashMap<>();
-//
-//                        params.put("mem_id", data);
-//                        params.put("game_score1", score);
-//                        return params;
-//                    }
-//                };
-//                requestQueue.add(request_score);
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(game1.this, error + "", Toast.LENGTH_SHORT).show();
+                                Log.d("error에러입니다", error.toString());
+                            }
+                        }
+                ) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String, String> params = new HashMap<>();
+
+                        params.put("mem_id", data);
+                        params.put("game_score2", score);
+                        return params;
+                    }
+                };
+                requestQueue.add(request_score);
             }
         }
     };

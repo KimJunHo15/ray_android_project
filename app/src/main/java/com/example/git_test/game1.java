@@ -318,11 +318,11 @@ public class game1 extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             int time = msg.arg1;
             pro = msg.arg2;
-            if (pro <= 10) {
+            if (pro <= 180) {
 //                int time_m = time / 60;
 //                int time_s = time % 60;
 ////                tv_game4_timer.setText("남은시간"+ time_m+" : "+time_s);
-                pro_game1.setProgress(10 - pro);
+                pro_game1.setProgress(180 - pro);
                 Log.d("pro_game_____", pro_game1.getProgress() + "");
             } else {
 //                tv_game4_timer.setText("게임종료");

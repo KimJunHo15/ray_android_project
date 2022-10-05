@@ -1,11 +1,13 @@
 package com.example.git_test;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +18,19 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class game4 extends AppCompatActivity {
@@ -27,7 +42,7 @@ public class game4 extends AppCompatActivity {
     ConstraintLayout cl_game4;
     ImageView[] img_game4_num;
     ImageView[] img_correct_num;
-    TextView tv_game4_count,tv_game4_indicate,tv_game4_best,tv_game4_timer;
+    TextView tv_game4_score,tv_game4_indicate,tv_game4_best,tv_game4_timer;
     int[] img;
     int[] seq;
     int[] right_img_id = {R.drawable.right_1,R.drawable.right_2,R.drawable.right_3,R.drawable.right_4,R.drawable.right_5,R.drawable.right_6,R.drawable.right_7,R.drawable.right_8,R.drawable.right_9,R.drawable.right_10};
@@ -38,13 +53,18 @@ public class game4 extends AppCompatActivity {
     boolean isPlaying;
     ProgressBar pro_game4;
 
+    // 최고 점수 용(볼리)
+    String mem_id;
+    RequestQueue requestQueue, requestQueue_img;
+    StringRequest request, request_score;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game4);
         btn_game4_return = findViewById(R.id.btn_game4_return);
         cl_game4 = findViewById(R.id.cl_index);
-        tv_game4_count = findViewById(R.id.tv_game4_score);
+        tv_game4_score = findViewById(R.id.tv_game4_score);
         tv_game4_indicate = findViewById(R.id.tv_game4_indicate);
         tv_game4_best = findViewById(R.id.tv_game4_best);
         tv_game4_timer = findViewById(R.id.tv_game4_timer);
@@ -52,8 +72,10 @@ public class game4 extends AppCompatActivity {
 
         img_correct_num = new ImageView[6];
         img_game4_num = new ImageView[6];
-        tv_game4_count.setText("0");
+        tv_game4_score.setText("0");
         int cnt =0;
+
+        getBestScore();
 
         btn_game4_return.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +90,7 @@ public class game4 extends AppCompatActivity {
         pro_game4.setProgress(180);
 
 
+
         TimerThread timerThread = new TimerThread();
         timerThread.start();
 
@@ -75,7 +98,6 @@ public class game4 extends AppCompatActivity {
             int img_id = getResources().getIdentifier("img_game4_" + (i + 1), "id", getPackageName());
             img_game4_num[i] = findViewById(img_id);
         }
-
 
         for(int i =0; i<img_correct_num.length; i++){
             int img_id = getResources().getIdentifier("img_correct_" + (i + 1), "id", getPackageName());
@@ -94,11 +116,54 @@ public class game4 extends AppCompatActivity {
         btn_game4_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(game4.this,GameActivity.class);
                 startActivity(intent);
             }
         });
 
+    }
+
+    private void getBestScore() {
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+        mem_id = auto.getString("mem_id", mem_id);
+        String data = mem_id;
+
+        String url = "http://10.0.2.2:8000/mobile/gamescore";
+
+        request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(response);
+                    String best_score = json.getString("max4");
+
+                    if (best_score.equals("null")) {
+                        tv_game4_best.setText("0");
+                    } else {
+                        tv_game4_best.setText(best_score);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", error + "");
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("mem_id", data);
+                return params;
+            }
+        };
+        requestQueue.add(request);
     }
 
     private void makeRight(){
@@ -177,8 +242,8 @@ public class game4 extends AppCompatActivity {
                 public void onClick(View view) {
                     cnt+=5;
                     if(img_game4_num[pos].getTag()=="left"){
-                        score = Integer.parseInt(tv_game4_count.getText().toString());
-                        tv_game4_count.setText((score+5)+"");
+                        score = Integer.parseInt(tv_game4_score.getText().toString());
+                        tv_game4_score.setText((score+5)+"");
                     }
                     change_img_left();
                     if(cnt%5==0){
@@ -233,8 +298,8 @@ public class game4 extends AppCompatActivity {
                     change_img_right();
                     cnt+=5;
                     if(img_game4_num[pos].getTag()=="right"){
-                        score = Integer.parseInt(tv_game4_count.getText().toString());
-                        tv_game4_count.setText((score+5)+"");
+                        score = Integer.parseInt(tv_game4_score.getText().toString());
+                        tv_game4_score.setText((score+5)+"");
                     }
                     if(cnt%5==0){
                         left();
@@ -249,18 +314,64 @@ public class game4 extends AppCompatActivity {
             int time = msg.arg1;
             pro = msg.arg2;
             if(time>=0){
-                int time_m = time/60;
-                int time_s = time%60;
-                if(pro==0){
-                    tv_game4_timer.setText("3:00");
-                }else{
-                    tv_game4_timer.setText(time_m+" : "+time_s);
-                }
                 pro_game4.setProgress(180-pro);
             }
             else{
-                tv_game4_timer.setText("게임종료");
                 isPlaying=false;
+                for(int i =0; i<6;i++){
+                    img_game4_num[i].setClickable(false);
+                }
+                requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+                SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
+                mem_id = auto.getString("mem_id", mem_id);
+                String data = mem_id;
+                Log.d("mem_id2", data);
+                String score = tv_game4_score.getText().toString();
+                Log.d("now__________", tv_game4_score +"");
+                String url = "http://10.0.2.2:8000/mobile/gamesave";
+
+                request_score = new StringRequest(
+                        Request.Method.POST,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject();
+                                    String code = jsonObject.getString("code");
+                                    if (code.equals(200)) {
+//                                        Toast.makeText(game1.this, "저장완료", Toast.LENGTH_SHORT).show();
+                                        Log.d("성공이다", "성공");
+
+                                    } else {
+                                        Log.d("error실패다", "실패");
+                                    }
+                                } catch (Exception e) {
+//                                    Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(game1.this, error + "", Toast.LENGTH_SHORT).show();
+                                Log.d("error에러입니다", error.toString());
+                            }
+                        }
+                ) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+
+                        Map<String, String> params = new HashMap<>();
+
+                        params.put("mem_id", data);
+                        params.put("game_score4", score);
+                        return params;
+                    }
+                };
+                requestQueue.add(request_score);
             }
         }
     };

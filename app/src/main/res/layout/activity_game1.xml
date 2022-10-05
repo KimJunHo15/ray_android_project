@@ -255,7 +255,7 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
-        android:max="30"
+        android:max="180"
         android:progressDrawable="@drawable/progressbar_progressbar1"
         android:scrollbarSize="28dp"
         android:visibility="invisible"
