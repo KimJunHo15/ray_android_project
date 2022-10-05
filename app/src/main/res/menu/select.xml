@@ -4,14 +4,18 @@
 
     <item
         android:id="@+id/item_main"
+        android:icon="@drawable/main"
         android:title="메인" />
     <item
         android:id="@+id/item_food"
+        android:icon="@drawable/food"
         android:title="음식" />
     <item
         android:id="@+id/item_train"
+        android:icon="@drawable/training"
         android:title="운동" />
     <item
         android:id="@+id/item_column"
+        android:icon="@drawable/column"
         android:title="컬럼" />
 </menu>
