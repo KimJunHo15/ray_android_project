@@ -105,9 +105,9 @@ public class MyActivity extends AppCompatActivity {
         String data = mem_id;
 
         // 데이터 송수신용 서버
-//        String url = "http://10.0.2.2:8000/mobile/showmember";
+       // String url = "http://10.0.2.2:8000/mobile/showmember";
         String url = "http://172.30.1.28:8000/mobile/showmember";
-//        String url_img = "http://10.0.2.2:8000/mobile/scoredata";
+      //  String url_img = "http://10.0.2.2:8000/mobile/scoredata";
         String url_img = "http://172.30.1.28:8000/mobile/scoredata";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue_img = Volley.newRequestQueue(getApplicationContext());
