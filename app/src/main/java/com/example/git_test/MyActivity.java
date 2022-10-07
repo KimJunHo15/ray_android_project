@@ -191,7 +191,8 @@ public class MyActivity extends AppCompatActivity {
                                 Log.d("score2",score);
                                 String date = json.getString("date");
                                 Log.d("date",date);
-                                String plus = "http://172.30.1.28:8000/"+ imgurl;
+//                                String plus = "http://172.30.1.28:8000/"+ imgurl;
+                                String plus = "http://10.0.2.2:8000/"+ imgurl;
                                 getData(score,date,plus);
                             }
 

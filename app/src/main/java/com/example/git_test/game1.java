@@ -361,7 +361,7 @@ public class game1 extends AppCompatActivity {
                                         Log.d("error실패다", "실패");
                                     }
                                 } catch (Exception e) {
-                                    Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         },
