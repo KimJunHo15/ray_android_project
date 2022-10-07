@@ -72,8 +72,8 @@ public class IndexActivity extends AppCompatActivity {
 
 
         String l_url2 = "http://127.0.0.1:8000/m_login";
-//        String l_url = "http://10.0.2.2:8000/mobile/login";
-        String l_url = "http://172.30.1.28:8000/mobile/login";
+        String l_url = "http://10.0.2.2:8000/mobile/login";
+//        String l_url = "http://172.30.1.28:8000/mobile/login";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         //자동 로그인 기능
