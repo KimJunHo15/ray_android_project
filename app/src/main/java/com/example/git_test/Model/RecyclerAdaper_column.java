@@ -1,5 +1,6 @@
 package com.example.git_test.Model;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,7 @@ public class RecyclerAdaper_column extends RecyclerView.Adapter<RecyclerAdaper_c
 
             column_t = itemView.findViewById(R.id.tv_column_t);
             column_c = itemView.findViewById(R.id.tv_column_c);
+            column_c.setMovementMethod(new ScrollingMovementMethod());
             column_url = itemView.findViewById(R.id.img_column);
         }
 

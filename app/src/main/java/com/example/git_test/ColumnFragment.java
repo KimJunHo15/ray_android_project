@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,9 @@ public class ColumnFragment extends Fragment {
         column_rv = view.findViewById(R.id.column_rv);
         tv_column_c = view.findViewById(R.id.tv_column_c);
         tv_column_t = view.findViewById(R.id.tv_column_t);
+        if(tv_column_t!=null){
+            tv_column_t.setMovementMethod(new ScrollingMovementMethod());
+        }
         img_column = view.findViewById(R.id.img_column);
         init();
 

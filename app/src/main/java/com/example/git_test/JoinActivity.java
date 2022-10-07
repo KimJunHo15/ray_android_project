@@ -106,7 +106,8 @@ public class JoinActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        String l_url = "http://10.0.2.2:8000/mobile/regist";
+//        String l_url = "http://10.0.2.2:8000/mobile/regist";
+        String l_url = "http://172.30.1.28:8000/mobile/regist";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         bt_join.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +142,8 @@ public class JoinActivity extends AppCompatActivity implements AdapterView.OnIte
                                     } else if (code.equals("400")) {
                                         Toast.makeText(getApplicationContext(), "중복된 아이디입니다. 다른 아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
                                         return;
+                                    } else if (code.equals("500")){
+                                        Toast.makeText(JoinActivity.this, "가입에 필요한 정보가 기입되지 않은 부분이 있습니다.", Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -150,7 +153,7 @@ public class JoinActivity extends AppCompatActivity implements AdapterView.OnIte
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-//                                Toast.makeText(getApplicationContext(), "서버 연결 에러.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "가입에 필요한 정보가 기입되지 않은 부분이 있습니다.", Toast.LENGTH_SHORT).show();
                                 Log.d("error에러", error.toString());
                             }
                         }
@@ -163,13 +166,14 @@ public class JoinActivity extends AppCompatActivity implements AdapterView.OnIte
                         // Map<key, value> 구조
                         Map<String, String> params = new HashMap<>();
 
-                        params.put("mem_id", data1);
-                        params.put("mem_pw", data2);
-                        params.put("mem_name", data3);
-                        params.put("mem_birth", data4);
-                        params.put("mem_gender", data5);
-                        params.put("mem_type", data6);
-
+                        if(data1!=null&&data2!=null&&data3!=null&&data4!=null&&data5!=null&&data6!=null){
+                            params.put("mem_id", data1);
+                            params.put("mem_pw", data2);
+                            params.put("mem_name", data3);
+                            params.put("mem_birth", data4);
+                            params.put("mem_gender", data5);
+                            params.put("mem_type", data6);
+                        }
                         return params;
                     }
                 };
