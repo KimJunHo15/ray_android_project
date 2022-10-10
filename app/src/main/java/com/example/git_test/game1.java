@@ -89,8 +89,8 @@ public class game1 extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         String score = tv_game1_now_score.toString();
-//        String url2 = "http://10.0.2.2:8000/mobile/gamesave";
-        String url2 = "http://172.30.1.28/mobile/gamesave";
+        String url2 = "http://10.0.2.2:8000/mobile/gamesave";
+//        String url2 = "http://172.30.1.28/mobile/gamesave";
 
 
         btn_game1_num = new Button[9];
@@ -175,8 +175,8 @@ public class game1 extends AppCompatActivity {
         mem_id = auto.getString("mem_id", mem_id);
         String data = mem_id;
 
-//        String url = "http://10.0.2.2:8000/mobile/gamescore";
-        String url = "http://172.30.1.28:8000/mobile/gamescore";
+        String url = "http://10.0.2.2:8000/mobile/gamescore";
+//        String url = "http://172.30.1.28:8000/mobile/gamescore";
 
         request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -220,8 +220,8 @@ public class game1 extends AppCompatActivity {
         String data = mem_id;
         Log.d("mem_id2", data);
         String score = tv_game1_best_score.toString();
-//        String url = "http://10.0.2.2:8000/mobile/gamesave";
-        String url = "http://172.30.1.28:8000/mobile/gamesave";
+        String url = "http://10.0.2.2:8000/mobile/gamesave";
+//        String url = "http://172.30.1.28:8000/mobile/gamesave";
 
         request = new StringRequest(
                 Request.Method.POST,
@@ -361,7 +361,7 @@ public class game1 extends AppCompatActivity {
                                         Log.d("error실패다", "실패");
                                     }
                                 } catch (Exception e) {
-                                    Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         },

@@ -106,8 +106,8 @@ public class JoinActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-//        String l_url = "http://10.0.2.2:8000/mobile/regist";
-        String l_url = "http://172.30.1.28:8000/mobile/regist";
+        String l_url = "http://10.0.2.2:8000/mobile/regist";
+//        String l_url = "http://172.30.1.28:8000/mobile/regist";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         bt_join.setOnClickListener(new View.OnClickListener() {

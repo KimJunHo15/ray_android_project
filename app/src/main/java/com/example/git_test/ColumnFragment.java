@@ -72,8 +72,8 @@ public class ColumnFragment extends Fragment {
         img_column = view.findViewById(R.id.img_column);
         init();
 
-//        String url = "http://10.0.2.2:8000/info/column";
-        String url = "http://172.30.1.28:8000/info/column";
+        String url = "http://10.0.2.2:8000/info/column";
+//        String url = "http://172.30.1.28:8000/info/column";
 
         requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
 
@@ -91,8 +91,8 @@ public class ColumnFragment extends Fragment {
                         String column_title = jsonObject.getString("column_title");
                         String column_content = jsonObject.getString("column_content");
                         String column_img = jsonObject.getString("column_img");
-//                        column_img = "http://10.0.2.2:8000"+column_img;
-                        column_img = "http://172.30.1.28:8000"+column_img;
+                        column_img = "http://10.0.2.2:8000"+column_img;
+//                        column_img = "http://172.30.1.28:8000"+column_img;
                         getData(column_title, column_content, column_img);
                     } catch (JSONException e) {
                         e.printStackTrace();
