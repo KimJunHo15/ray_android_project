@@ -14,10 +14,10 @@
       android:visibility="visible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.502"
+      app:layout_constraintHorizontal_bias="0.501"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.014"
+      app:layout_constraintVertical_bias="0.094"
       tools:srcCompat="@drawable/big_logo" />
 
   <TextView
@@ -25,7 +25,6 @@
       android:layout_width="489dp"
       android:layout_height="59dp"
       android:layout_marginTop="128dp"
-      android:text="첨부 파일 이름"
       android:textSize="50dp"
       android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="@+id/img_upload_img"

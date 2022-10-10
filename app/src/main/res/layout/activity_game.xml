@@ -12,21 +12,25 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="왼손 오른손을 찾아라!"
         android:textSize="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/game_4"
         app:layout_constraintStart_toEndOf="@+id/game_4"
-        app:layout_constraintTop_toTopOf="@+id/game_4" />
+        app:layout_constraintTop_toTopOf="@+id/game_4"
+        app:layout_constraintVertical_bias="0.096" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:text="카드 맞추기"
         android:textSize="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/game_2"
         app:layout_constraintStart_toEndOf="@+id/game_2"
-        app:layout_constraintTop_toTopOf="@+id/game_2" />
+        app:layout_constraintTop_toTopOf="@+id/game_2"
+        app:layout_constraintVertical_bias="0.096" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -79,11 +83,13 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="숫자 순서대로 누르기"
         android:textSize="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/game_1"
         app:layout_constraintStart_toEndOf="@+id/game_1"
-        app:layout_constraintTop_toTopOf="@+id/game_1" />
+        app:layout_constraintTop_toTopOf="@+id/game_1"
+        app:layout_constraintVertical_bias="0.142" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -95,5 +101,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.188"
         app:srcCompat="@drawable/logo_write" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="267dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="12dp"
+        android:text="숫자를 차례에 맞추어 순서대로 눌러준다."
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/game_1"
+        app:layout_constraintStart_toEndOf="@+id/game_1"
+        app:layout_constraintTop_toTopOf="@+id/game_1"
+        app:layout_constraintVertical_bias="0.641" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="296dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="4dp"
+        android:text="보여지는 그림을 기억한 후 카드가 뒤집어 졌을 때 똑같은 사진의 그림을 찾으면 된다."
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/game_2"
+        app:layout_constraintStart_toEndOf="@+id/game_2"
+        app:layout_constraintTop_toTopOf="@+id/game_2"
+        app:layout_constraintVertical_bias="0.728" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="323dp"
+        android:layout_height="168dp"
+        android:layout_marginStart="12dp"
+        android:text="주어진 질문에 맞추어 왼손 오른손 사진을 찾아 눌러준다."
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/game_4"
+        app:layout_constraintStart_toEndOf="@+id/game_4"
+        app:layout_constraintTop_toTopOf="@+id/game_4"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
