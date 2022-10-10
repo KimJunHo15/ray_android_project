@@ -47,6 +47,10 @@ public class FoodFragment extends Fragment {
     private RecyclerAdaper_food adapter_food;
     foodData foodData;
 
+//    public static FoodFragment newInstance(){
+//        return new FoodFragment();
+//    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

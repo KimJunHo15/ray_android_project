@@ -8,11 +8,11 @@
         android:title="메인" />
     <item
         android:id="@+id/item_food"
-        android:icon="@drawable/food"
+        android:icon="@drawable/egg"
         android:title="음식" />
     <item
         android:id="@+id/item_train"
-        android:icon="@drawable/training"
+        android:icon="@drawable/training_running"
         android:title="운동" />
     <item
         android:id="@+id/item_column"

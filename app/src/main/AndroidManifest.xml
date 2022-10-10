@@ -82,6 +82,9 @@
         <activity
             android:name=".Exam_upload"
             android:exported="false" />
+        <activity android:name=".FoodFragment"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
     </application>
 
 </manifest>

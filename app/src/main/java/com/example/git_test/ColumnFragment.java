@@ -52,11 +52,16 @@ public class ColumnFragment extends Fragment {
     private RecyclerAdaper_column adapter_column;
     columnData columnData;
 
+//    public static ColumnFragment newInstance(){
+//        return new ColumnFragment();
+//    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_column, container, false);
+
 
         column_rv = view.findViewById(R.id.column_rv);
         tv_column_c = view.findViewById(R.id.tv_column_c);

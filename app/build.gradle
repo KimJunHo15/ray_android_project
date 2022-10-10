@@ -66,6 +66,11 @@ dependencies {
 
     //텍스트뷰 이미지 뷰 애니메이션
     implementation 'com.daimajia.androidanimations:library:2.4@aar'
+
+    // 안드로이드 유튜브 연동
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.26'
+
     //기본
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

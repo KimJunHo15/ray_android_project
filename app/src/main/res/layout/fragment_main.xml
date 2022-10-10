@@ -1,19 +1,123 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainFragment">
+    android:layout_height="match_parent">
+
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:autoPlay="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:videoId="cc4OJzq0XUM" >
+
+    </com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView>
+
+    <TextView
+        android:id="@+id/tvc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="칼럼 정보"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imgc"
+        app:layout_constraintStart_toStartOf="@+id/imgc"
+        app:layout_constraintTop_toTopOf="@+id/tvt" />
+
+    <TextView
+        android:id="@+id/tvf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="음식 정보"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/imgf"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="@+id/imgf"
+        app:layout_constraintTop_toBottomOf="@+id/imgf" />
+
+    <TextView
+        android:id="@+id/tvt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="운동 정보"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imgc"
+        app:layout_constraintStart_toEndOf="@+id/imgf"
+        app:layout_constraintTop_toTopOf="@+id/tvf" />
+
+    <TextView
+        android:id="@+id/tvinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="추천 정보"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="480dp" />
+
 
     <ImageView
-        android:id="@+id/img_return_main_f"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        android:src="@android:drawable/ic_menu_revert"
+        android:id="@+id/imgc"
+        android:layout_width="250dp"
+        android:layout_height="340dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/round_background_border_black"
+        android:padding="15dp"
+
+
+
+        app:layout_constraintBottom_toBottomOf="@+id/imgt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgt"
+        app:layout_constraintTop_toTopOf="@+id/imgt"
+        app:srcCompat="@drawable/column123" />
+
+    <ImageView
+        android:id="@+id/imgf"
+        android:layout_width="250dp"
+        android:layout_height="340dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/round_background_border_black"
+        android:padding="15dp"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:srcCompat="@drawable/egg" />
+
+    <ImageView
+        android:id="@+id/imgt"
+        android:layout_width="250dp"
+        android:layout_height="340dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgf"
+        app:layout_constraintStart_toEndOf="@+id/imgf"
+        app:layout_constraintTop_toTopOf="@+id/imgf"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/training_running"
+
+        android:background="@drawable/round_background_border_black"
+        android:padding="15dp"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

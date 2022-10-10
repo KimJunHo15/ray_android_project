@@ -46,6 +46,11 @@ public class TrainingFragment extends Fragment {
 
     private RecyclerAdaper_training adapter_training;
 
+//    public static TrainingFragment newInstance(){
+//        return new TrainingFragment();
+//    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
