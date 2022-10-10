@@ -58,7 +58,7 @@ import retrofit2.http.Url;
 
 public class MyActivity extends AppCompatActivity {
 
-    ImageView img_return_m,img_test;
+    ImageView img_return_m, img_test;
     TextView tv_name, tv_birth, tv_gender;
     RecyclerView rv;
     Button btn_logout;
@@ -126,7 +126,7 @@ public class MyActivity extends AppCompatActivity {
                             String mem_birth = json.getString("mem_birth");
                             String mem_gender = json.getString("mem_gender");
                             String mem_name = json.getString("mem_name");
-                            Log.d("mem_name",mem_name);
+                            Log.d("mem_name", mem_name);
 
                             tv_name.setText(mem_name);
                             tv_birth.setText(mem_birth);
@@ -142,7 +142,7 @@ public class MyActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(MyActivity.this, error + "", Toast.LENGTH_SHORT).show();
-                        Log.d("error_info",error.toString());
+                        Log.d("error_info", error.toString());
                     }
                 }
         ) {
@@ -184,27 +184,26 @@ public class MyActivity extends AppCompatActivity {
                         try {
                             JSONObject json = new JSONObject(response);
 
-                            if(json!=null){
+                            if (json != null) {
                                 String imgurl = json.getString("imgurl");
-                                Log.d("imgurl2",imgurl);
+                                Log.d("imgurl2", imgurl);
                                 String score = json.getString("score");
-                                Log.d("score2",score);
+                                Log.d("score2", score);
                                 String date = json.getString("date");
-                                Log.d("date",date);
-//                                String plus = "http://172.30.1.28:8000/"+ imgurl;
-                                String plus = "http://10.0.2.2:8000/"+ imgurl;
-                                getData(score,date,plus);
+                                Log.d("date", date);
+                                String plus = "http://10.0.2.2:8000/" + imgurl;
+                                getData(score, date, plus);
                             }
 
                         } catch (Exception e) {
-                            Toast.makeText(MyActivity.this, "에러발생", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("error_img",error.toString());
+                        Log.d("error_img", error.toString());
                     }
                 }
 
@@ -224,11 +223,10 @@ public class MyActivity extends AppCompatActivity {
         cl_my.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (click_my ==true){
+                if (click_my == true) {
                     showSystemUI();
                     click_my = false;
-                }
-                else{
+                } else {
                     hideSystemUI();
                     click_my = true;
                 }
@@ -271,19 +269,20 @@ public class MyActivity extends AppCompatActivity {
     }
 
 
-    private void init(){
+    private void init() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(linearLayoutManager);
 
-        adapter= new RecyclerAdaper();
+        adapter = new RecyclerAdaper();
         rv.setAdapter(adapter);
     }
-    private void getData(String score,String date, String url){
+
+    private void getData(String score, String date, String url) {
         List<String> listScore = Arrays.asList(score);
         List<String> listDate = Arrays.asList(date);
         List<String> listUrl = Arrays.asList(url);
 
-        for(int i =0; i<listScore.size();i++){
+        for (int i = 0; i < listScore.size(); i++) {
             Data data = new Data();
             data.setScore(listScore.get(i));
             data.setDate(listDate.get(i));
@@ -294,6 +293,7 @@ public class MyActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
