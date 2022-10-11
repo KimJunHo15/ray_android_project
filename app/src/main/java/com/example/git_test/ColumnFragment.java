@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +24,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.git_test.Model.RecyclerAdaper_column;
-import com.example.git_test.Model.RecyclerAdaper_training;
-import com.example.git_test.Model.columnAdapter;
 import com.example.git_test.Model.columnData;
 import com.example.git_test.Model.columnVO;
-import com.example.git_test.Model.trainingData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,15 +61,15 @@ public class ColumnFragment extends Fragment {
 
         column_rv = view.findViewById(R.id.column_rv);
         tv_column_c = view.findViewById(R.id.tv_column_c);
+
         tv_column_t = view.findViewById(R.id.tv_column_t);
         if(tv_column_t!=null){
             tv_column_t.setMovementMethod(new ScrollingMovementMethod());
         }
         img_column = view.findViewById(R.id.img_column);
         init();
-
-        String url = "http://10.0.2.2:8000/info/column";
-//        String url = "http://172.30.1.28:8000/info/column";
+//        String url = "http://10.0.2.2:8000/info/column";
+        String url = "http://172.30.1.28:8000/info/column";
 
         requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
 
@@ -91,8 +87,8 @@ public class ColumnFragment extends Fragment {
                         String column_title = jsonObject.getString("column_title");
                         String column_content = jsonObject.getString("column_content");
                         String column_img = jsonObject.getString("column_img");
-                        column_img = "http://10.0.2.2:8000"+column_img;
-//                        column_img = "http://172.30.1.28:8000"+column_img;
+//                        column_img = "http://10.0.2.2:8000"+column_img;
+                        column_img = "http://172.30.1.28:8000"+column_img;
                         getData(column_title, column_content, column_img);
                     } catch (JSONException e) {
                         e.printStackTrace();

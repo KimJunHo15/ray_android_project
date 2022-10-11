@@ -8,14 +8,13 @@
     tools:context=".game4">
 
     <TextView
-        android:id="@+id/tv_game4_best"
+        android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textSize="36dp"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        android:text="현재점수"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_game4_score"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/img_game4_6"
@@ -128,7 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Button"
+        android:text="돌아가기"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -156,12 +155,32 @@
         android:id="@+id/tv_game4_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="80dp"
         android:text="TextView"
         android:textSize="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="최고점수"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_game4_score"
+        app:layout_constraintTop_toBottomOf="@+id/tv_game4_score" />
+
+    <TextView
+        android:id="@+id/tv_game4_best"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textSize="36dp"
+        app:layout_constraintStart_toStartOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
         android:id="@+id/tv_game4_indicate"
@@ -175,16 +194,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.701" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="최고점수"
-        android:textSize="24dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_game4_score"
-        app:layout_constraintTop_toBottomOf="@+id/tv_game4_score" />
 
     <ProgressBar
         android:max="180"

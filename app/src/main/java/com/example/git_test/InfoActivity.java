@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +21,8 @@ import com.google.android.material.navigation.NavigationBarView;
 public class InfoActivity extends AppCompatActivity {
 
     BottomNavigationView bnv;
-    //ImageView img_return_i;
+
+    ImageView img_return_info;
     ConstraintLayout cl_info;
     boolean click_info;
 
@@ -36,6 +38,7 @@ public class InfoActivity extends AppCompatActivity {
         bnv = findViewById(R.id.bnv);
         //img_return_i = findViewById(R.id.img_return_i);
         cl_info = findViewById(R.id.cl_info);
+        img_return_info = findViewById(R.id.img_return_info);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl, new MainFragment()).commit();
 
         cl_info.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +54,16 @@ public class InfoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        img_return_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InfoActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         bnv.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

@@ -390,6 +390,8 @@ public class Exam_upload extends AppCompatActivity {
 
                 if(response.isSuccessful()){
                     Toast.makeText(Exam_upload.this, "포스팅 완료", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Exam_upload.this, MyActivity.class);
+                    startActivity(intent);
                     finish();
                 }else {
                     Toast.makeText(Exam_upload.this, "에러발생 : " + response.code(),

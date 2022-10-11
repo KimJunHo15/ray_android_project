@@ -89,19 +89,13 @@ public class game1 extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         String score = tv_game1_now_score.toString();
-        String url2 = "http://10.0.2.2:8000/mobile/gamesave";
-//        String url2 = "http://172.30.1.28/mobile/gamesave";
+//        String url2 = "http://10.0.2.2:8000/mobile/gamesave";
+        String url2 = "http://172.30.1.28/mobile/gamesave";
 
 
         btn_game1_num = new Button[9];
 
-        btn_game1_return.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(game1.this, GameActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
 
         for (int i = 0; i < btn_game1_num.length; i++) {
@@ -109,61 +103,105 @@ public class game1 extends AppCompatActivity {
             btn_game1_num[i] = findViewById(btn_id);
         }
 
+        next_cnt =3 ;
 
-        btn_game1_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (next_cnt == 0) {
-                    img_game1_info.setImageResource(R.drawable.img3);
-                    tv_game1_info.setText("설명 1");
-                    next_cnt += 1;
-                    for (int i = 0; i < btn_game1_num.length; i++) {
-                        Log.d("아이디값 확인", btn_game1_num[i] + "");
-                    }
-                } else if (next_cnt == 1) {
-                    img_game1_info.setImageResource(R.drawable.img2);
-                    tv_game1_info.setText("설명2");
-                    next_cnt += 1;
-                } else if (next_cnt == 2) {
-                    img_game1_info.setImageResource(R.drawable.img1);
-                    tv_game1_info.setText("설명3");
-                    btn_game1_next.setText("게임시작");
-                    next_cnt += 1;
-                } else if (next_cnt == 3) {
-                    getBestScore();
-                    game1_info_hide();
-                    game1_show();
-                    pro_game1.setProgress(180);
-                    TimerThread timerThread = new TimerThread();
-                    timerThread.start();
-                    cnt = 0;
-                    answer = 1;
-                    makeRandom(cnt);
+        getBestScore();
+        game1_info_hide();
+        game1_show();
+        pro_game1.setProgress(180);
+        TimerThread timerThread = new TimerThread();
+        timerThread.start();
+        cnt = 0;
+        answer = 1;
+        makeRandom(cnt);
 
-                    for (int i = 0; i < btn_game1_num.length; i++) {
-                        final int pos = i;
-                        btn_game1_num[i].setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (lotto[pos] == answer) {
-                                    btn_game1_num[pos].setVisibility(View.INVISIBLE);
-                                    answer++;
-                                    cnt++;
-                                    tv_game1_now_score.setText(cnt + "");
-                                    if (cnt % 9 == 0) {
-                                        makeRandom(cnt);
-                                    }
-                                } else {
-                                    YoYo.with(Techniques.Shake).duration(500).playOn(btn_game1_num[pos]);
-                                }
-                            }
-                        });
+        for (int i = 0; i < btn_game1_num.length; i++) {
+            final int pos = i;
+            btn_game1_num[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (lotto[pos] == answer) {
+                        btn_game1_num[pos].setVisibility(View.INVISIBLE);
+                        answer++;
+                        cnt++;
+                        tv_game1_now_score.setText(cnt + "");
+                        if (cnt % 9 == 0) {
+                            makeRandom(cnt);
+                        }
+                    } else {
+                        YoYo.with(Techniques.Shake).duration(500).playOn(btn_game1_num[pos]);
                     }
                 }
-                ;
+            });
+        }
+
+        btn_game1_return.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(game1.this, GameActivity.class);
+                startActivity(intent);
+                timeHandler.removeCallbacksAndMessages(null);
+                finish();
+
             }
-            ;
         });
+
+
+//        btn_game1_next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (next_cnt == 0) {
+//                    img_game1_info.setImageResource(R.drawable.img3);
+//                    tv_game1_info.setText("설명 1");
+//                    next_cnt += 1;
+//                    for (int i = 0; i < btn_game1_num.length; i++) {
+//                        Log.d("아이디값 확인", btn_game1_num[i] + "");
+//                    }
+//                } else if (next_cnt == 1) {
+//                    img_game1_info.setImageResource(R.drawable.img2);
+//                    tv_game1_info.setText("설명2");
+//                    next_cnt += 1;
+//                } else if (next_cnt == 2) {
+//                    img_game1_info.setImageResource(R.drawable.img1);
+//                    tv_game1_info.setText("설명3");
+//                    btn_game1_next.setText("게임시작");
+//                    next_cnt += 1;
+//                } else if (next_cnt == 3) {
+//                    getBestScore();
+//                    game1_info_hide();
+//                    game1_show();
+//                    pro_game1.setProgress(180);
+//                    TimerThread timerThread = new TimerThread();
+//                    timerThread.start();
+//                    cnt = 0;
+//                    answer = 1;
+//                    makeRandom(cnt);
+//
+//                    for (int i = 0; i < btn_game1_num.length; i++) {
+//                        final int pos = i;
+//                        btn_game1_num[i].setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                if (lotto[pos] == answer) {
+//                                    btn_game1_num[pos].setVisibility(View.INVISIBLE);
+//                                    answer++;
+//                                    cnt++;
+//                                    tv_game1_now_score.setText(cnt + "");
+//                                    if (cnt % 9 == 0) {
+//                                        makeRandom(cnt);
+//                                    }
+//                                } else {
+//                                    YoYo.with(Techniques.Shake).duration(500).playOn(btn_game1_num[pos]);
+//                                }
+//                            }
+//                        });
+//                    }
+//                }
+//                ;
+//            }
+//
+//            ;
+//        });
     }
 
 
@@ -175,8 +213,8 @@ public class game1 extends AppCompatActivity {
         mem_id = auto.getString("mem_id", mem_id);
         String data = mem_id;
 
-        String url = "http://10.0.2.2:8000/mobile/gamescore";
-//        String url = "http://172.30.1.28:8000/mobile/gamescore";
+//        String url = "http://10.0.2.2:8000/mobile/gamescore";
+        String url = "http://172.30.1.28:8000/mobile/gamescore";
 
         request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -189,6 +227,7 @@ public class game1 extends AppCompatActivity {
                     if (best_score.equals("null")) {
                         tv_game1_best_score.setText("0");
                     } else {
+                        Log.d("setText",best_score+"");
                         tv_game1_best_score.setText(best_score);
                     }
                 } catch (JSONException e) {
@@ -220,8 +259,8 @@ public class game1 extends AppCompatActivity {
         String data = mem_id;
         Log.d("mem_id2", data);
         String score = tv_game1_best_score.toString();
-        String url = "http://10.0.2.2:8000/mobile/gamesave";
-//        String url = "http://172.30.1.28:8000/mobile/gamesave";
+//        String url = "http://10.0.2.2:8000/mobile/gamesave";
+        String url = "http://172.30.1.28:8000/mobile/gamesave";
 
         request = new StringRequest(
                 Request.Method.POST,
@@ -270,7 +309,6 @@ public class game1 extends AppCompatActivity {
         img_game1_info.setVisibility(View.INVISIBLE);
         tv_game1_info.setVisibility(View.INVISIBLE);
         btn_game1_next.setVisibility(View.INVISIBLE);
-
     }
 
     private void game1_info_show() {
@@ -316,6 +354,8 @@ public class game1 extends AppCompatActivity {
     }
 
 
+
+
     // 타이머 핸들러
     Handler timeHandler = new Handler() {
         public void handleMessage(@NonNull Message msg) {
@@ -331,7 +371,7 @@ public class game1 extends AppCompatActivity {
 //                tv_game4_timer.setText("게임종료");
                 isPlaying = false;
                 playCheck = false;
-                for(int i =0; i<9;i++){
+                for (int i = 0; i < 9; i++) {
                     btn_game1_num[i].setClickable(false);
                 }
                 requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -341,8 +381,9 @@ public class game1 extends AppCompatActivity {
                 String data = mem_id;
                 Log.d("mem_id2", data);
                 String score = tv_game1_now_score.getText().toString();
-                Log.d("now__________",tv_game1_now_score+"");
-                String url = "http://10.0.2.2:8000/mobile/gamesave";
+                Log.d("now__________", tv_game1_now_score + "");
+//                String url = "http://10.0.2.2:8000/mobile/gamesave";
+                String url = "http://172.30.1.28:8000/mobile/gamesave";
 
                 request_score = new StringRequest(
                         Request.Method.POST,
@@ -356,7 +397,6 @@ public class game1 extends AppCompatActivity {
                                     if (code.equals(200)) {
                                         Toast.makeText(game1.this, "저장완료", Toast.LENGTH_SHORT).show();
                                         Log.d("성공이다", "성공");
-
                                     } else {
                                         Log.d("error실패다", "실패");
                                     }

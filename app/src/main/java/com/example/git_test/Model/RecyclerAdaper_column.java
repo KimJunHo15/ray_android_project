@@ -52,13 +52,14 @@ public class RecyclerAdaper_column extends RecyclerView.Adapter<RecyclerAdaper_c
 
             column_t = itemView.findViewById(R.id.tv_column_t);
             column_c = itemView.findViewById(R.id.tv_column_c);
-            column_c.setMovementMethod(new ScrollingMovementMethod());
+//            column_c.setMovementMethod(new ScrollingMovementMethod());
             column_url = itemView.findViewById(R.id.img_column);
         }
 
         public void onBind(columnData data) {
             column_t.setText(data.getColumn_t());
             column_c.setText(data.getColumn_c());
+            Log.d("column_c",data.getColumn_c()+"");
             Log.d("data.getImgurl()",data.getColumn_url());
             Glide.with(itemView.getContext()).load(data.getColumn_url()).into(column_url);
             //imgurl.setImageURI(data.getImgurl());

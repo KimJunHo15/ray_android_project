@@ -61,8 +61,8 @@ public class FoodFragment extends Fragment {
         tv_food_c = view.findViewById(R.id.tv_food_c);
         img_food = view.findViewById(R.id.img_food);
 
-        String url = "http://10.0.2.2:8000/info/food";
-//        String url = "http://172.30.1.28:8000/info/food";
+//        String url = "http://10.0.2.2:8000/info/food";
+        String url = "http://172.30.1.28:8000/info/food";
 
         requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
 
@@ -82,8 +82,8 @@ public class FoodFragment extends Fragment {
                         String food_title = jsonObject.getString("food_title");
                         String food_info = jsonObject.getString("food_info");
                         String food_img = jsonObject.getString("food_img");
-                        food_img = "http://10.0.2.2:8000"+food_img;
-//                        food_img = "http://172.30.1.28:8000"+food_img;
+//                        food_img = "http://10.0.2.2:8000"+food_img;
+                        food_img = "http://172.30.1.28:8000"+food_img;
                         getData_food(food_title, food_info, food_img);
                     } catch (JSONException e) {
                         e.printStackTrace();

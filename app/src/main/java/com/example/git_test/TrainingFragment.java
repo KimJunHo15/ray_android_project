@@ -62,8 +62,8 @@ public class TrainingFragment extends Fragment {
 
 
         init();
-        String url = "http://10.0.2.2:8000/info/train";
-//        String url = "http://172.30.1.28:8000/info/train";
+//        String url = "http://10.0.2.2:8000/info/train";
+        String url = "http://172.30.1.28:8000/info/train";
 
         requestQueue = Volley.newRequestQueue(getContext().getApplicationContext());
 
@@ -81,8 +81,8 @@ public class TrainingFragment extends Fragment {
                         String training_t = jsonObject.getString("train_title");
                         String training_c = jsonObject.getString("train_info");
                         String training_url = jsonObject.getString("train_img");
-                        training_url = "http://10.0.2.2:8000"+training_url;
-//                        training_url = "http://172.30.1.28:8000"+training_url;
+//                        training_url = "http://10.0.2.2:8000"+training_url;
+                        training_url = "http://172.30.1.28:8000"+training_url;
                         getData(training_t, training_c, training_url);
                     } catch (JSONException e) {
                         e.printStackTrace();

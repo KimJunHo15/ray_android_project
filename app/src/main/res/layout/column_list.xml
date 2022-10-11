@@ -9,7 +9,7 @@
         android:id="@+id/img_column"
         android:layout_width="257dp"
         android:layout_height="278dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,33 +26,27 @@
         app:layout_constraintTop_toBottomOf="@+id/img_column" />
 
     <ScrollView
-        android:layout_width="708dp"
-        android:layout_height="813dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="691dp"
+        android:layout_height="835dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tv_column_t"
         app:layout_constraintStart_toStartOf="@+id/tv_column_t"
-        app:layout_constraintTop_toBottomOf="@+id/tv_column_t">
+        app:layout_constraintTop_toBottomOf="@+id/tv_column_t"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_column_c"
-                android:layout_width="665dp"
-                android:layout_height="753dp"
-                android:layout_marginTop="40dp"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
-                android:scrollbarFadeDuration="0"
-                android:scrollbarSize="5dp"
-                android:scrollbarStyle="outsideInset"
-                android:scrollbars="vertical"
-                android:text="tv_column_c"
-                android:textSize="28dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_column_t"
-                app:layout_constraintStart_toStartOf="@+id/tv_column_t"
-                app:layout_constraintTop_toBottomOf="@+id/tv_column_t" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                android:textSize="28dp" />
         </LinearLayout>
     </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

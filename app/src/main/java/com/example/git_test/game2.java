@@ -44,11 +44,13 @@ import java.util.Random;
 
 public class game2 extends AppCompatActivity {
 
-    TextView tv_count_5, tv_game2_score,tv_game2_best;
+    TextView tv_count_5, tv_game2_score, tv_game2_best;
     Button btn_test_return;
     ImageView[] game2_img_num;
     ConstraintLayout game2_cl;
     ProgressBar pro_game2;
+
+    String best_score;
 
     ArrayList<String> check_right;
     ArrayList<ImageView> check_right_id;
@@ -111,6 +113,8 @@ public class game2 extends AppCompatActivity {
         game2_img_num = new ImageView[16];
 
         getBestScore();
+        Log.d("game_best",tv_game2_best.getText()+"");
+        Log.d("game_best",best_score+"");
 
 
         for (int i = 0; i < game2_img_num.length; i++) {
@@ -120,7 +124,7 @@ public class game2 extends AppCompatActivity {
 
         game2_set();
 
-        if(isPlaying==false){
+        if (isPlaying == false) {
             int best = Integer.parseInt(tv_game2_score.getText().toString());
             tv_game2_best.setText(best);
         }
@@ -129,7 +133,7 @@ public class game2 extends AppCompatActivity {
         btn_test_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(game2.this,GameActivity.class);
+                Intent intent = new Intent(game2.this, GameActivity.class);
                 startActivity(intent);
             }
         });
@@ -143,8 +147,8 @@ public class game2 extends AppCompatActivity {
         mem_id = auto.getString("mem_id", mem_id);
         String data = mem_id;
 
-        String url = "http://10.0.2.2:8000/mobile/gamescore";
-//        String url = "http://172.30.1.28:8000/mobile/gamescore";
+        String url = "http://172.30.1.28:8000/mobile/gamescore";
+//        String url = "http://10.0.0.1:8000/mobile/gamescore";
 
         request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -152,15 +156,18 @@ public class game2 extends AppCompatActivity {
                 JSONObject json = null;
                 try {
                     json = new JSONObject(response);
-                    String best_score = json.getString("max2");
+                    best_score = json.getString("max2");
+                    Log.d("best_score____________________________",best_score+"");
 
                     if (best_score.equals("null")) {
                         tv_game2_best.setText("0");
                     } else {
+                        Log.d("game_best_show",best_score+"");
                         tv_game2_best.setText(best_score);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.d("error_game2",e+"");
                 }
             }
         }, new Response.ErrorListener() {
@@ -181,10 +188,8 @@ public class game2 extends AppCompatActivity {
     }
 
 
-
-
     private void makeTag() {
-        roof=false;
+        roof = false;
         check_click = true;
 
         Random rd = new Random();
@@ -256,7 +261,8 @@ public class game2 extends AppCompatActivity {
             }
         }
     }
-    int num =0;
+
+    int num = 0;
 
     private void check_img() {
         if (count_turn >= 2 && check_right.size() == 2) {
@@ -271,7 +277,7 @@ public class game2 extends AppCompatActivity {
                         num++;
                         tv_game2_score.setText((score + 5) + "");
                         remain = remain - 2;
-                        if (Integer.parseInt(tv_game2_score.getText().toString())%40==0) {
+                        if (Integer.parseInt(tv_game2_score.getText().toString()) % 40 == 0) {
                             game2_set();
                         }
                     }
@@ -356,7 +362,7 @@ public class game2 extends AppCompatActivity {
 
     private void game2_set_2() {
 
-        if(Integer.parseInt(tv_count_5.getText().toString())%40==0){
+        if (Integer.parseInt(tv_count_5.getText().toString()) % 40 == 0) {
             makeTag();
             for (int i = 0; i < game2_img_num.length; i++) {
                 game2_img_num[i].setClickable(false);
@@ -390,20 +396,20 @@ public class game2 extends AppCompatActivity {
             }
         }
     }
-    Handler timeHandler = new Handler(){
+
+    Handler timeHandler = new Handler() {
         public void handleMessage(@NonNull Message msg) {
             int time = msg.arg1;
             pro = msg.arg2;
-            if(pro<=180){
-                int time_m = time/60;
-                int time_s = time%60;
+            if (pro <= 180) {
+                int time_m = time / 60;
+                int time_s = time % 60;
 //                tv_game4_timer.setText("남은시간"+ time_m+" : "+time_s);
-                pro_game2.setProgress(180-pro);
-            }
-            else{
+                pro_game2.setProgress(180 - pro);
+            } else {
 //                tv_game4_timer.setText("게임종료");
-                isPlaying=false;
-                for(int i =0; i<16;i++){
+                isPlaying = false;
+                for (int i = 0; i < 16; i++) {
                     game2_img_num[i].setClickable(false);
                 }
                 requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -411,11 +417,10 @@ public class game2 extends AppCompatActivity {
                 SharedPreferences auto = getSharedPreferences("autologin", Activity.MODE_PRIVATE);
                 mem_id = auto.getString("mem_id", mem_id);
                 String data = mem_id;
-                Log.d("mem_id2", data);
                 String score = tv_game2_score.getText().toString();
-                Log.d("now__________",tv_game2_score+"");
-                String url = "http://10.0.2.2:8000/mobile/gamesave";
-//                String url = "http://172.30.1.28:8000/mobile/gamesave";
+                Log.d("now__________", tv_game2_score.getText().toString() + "");
+//                String url = "http://10.0.2.2:8000/mobile/gamesave";
+                String url = "http://172.30.1.28:8000/mobile/gamesave";
 
                 request_score = new StringRequest(
                         Request.Method.POST,
@@ -429,12 +434,12 @@ public class game2 extends AppCompatActivity {
                                     if (code.equals(200)) {
 //                                        Toast.makeText(game1.this, "저장완료", Toast.LENGTH_SHORT).show();
                                         Log.d("성공이다", "성공");
-
                                     } else {
                                         Log.d("error실패다", "실패");
                                     }
                                 } catch (Exception e) {
 //                                    Toast.makeText(game1.this, "에러발생", Toast.LENGTH_SHORT).show();
+                                    Log.d("에러_게임2",e+"");
                                 }
                             }
                         },
@@ -462,12 +467,13 @@ public class game2 extends AppCompatActivity {
         }
     };
 
-    class TimerThread extends  Thread{
+    class TimerThread extends Thread {
         int time = 180;
         int timer = 0;
+
         @Override
         public void run() {
-            while (isPlaying){
+            while (isPlaying) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -479,7 +485,7 @@ public class game2 extends AppCompatActivity {
                 message.arg1 = time;
                 message.arg2 = timer;
                 time--;
-                timer+=1;
+                timer += 1;
                 timeHandler.sendMessage(message);
             }
         }

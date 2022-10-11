@@ -39,10 +39,22 @@ public class MainFragment extends Fragment {
             }
         });
 
-        ImageView imgc,imgf,imgt;
+        ImageView imgc,imgf,imgt,img_return_ftrament_main;
         imgc = view.findViewById(R.id.imgc);
+
         imgf = view.findViewById(R.id.imgf);
+        imgf.setImageResource(R.drawable.food_for_main);
         imgt = view.findViewById(R.id.imgt);
+        imgt.setImageResource(R.drawable.train_for_main);
+//        img_return_ftrament_main = view.findViewById(R.id.img_return_f);
+
+//        img_return_ftrament_main.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent((InfoActivity)getActivity().this, MainActivity.class);
+//
+//            }
+//        });
 
         imgc.setOnClickListener(new View.OnClickListener() {
             @Override

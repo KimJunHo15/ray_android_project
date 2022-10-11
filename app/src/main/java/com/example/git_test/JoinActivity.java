@@ -106,8 +106,10 @@ public class JoinActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        String l_url = "http://10.0.2.2:8000/mobile/regist";
+//        String l_url = "http://10.0.2.2:8000/mobile/regist";
 //        String l_url = "http://172.30.1.28:8000/mobile/regist";
+//        String l_url = "http://172.30.1.78:8000/mobile/regist";
+        String l_url = "http://172.30.1.59:8000/mobile/regist";
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         bt_join.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +155,7 @@ public class JoinActivity extends AppCompatActivity implements AdapterView.OnIte
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "가입에 필요한 정보가 기입되지 않은 부분이 있습니다.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "서버에러.", Toast.LENGTH_SHORT).show();
                                 Log.d("error에러", error.toString());
                             }
                         }
